@@ -9,6 +9,7 @@
 
   Released under the GNU General Public License
 */
+
 ?>
 
 </div> <!-- bodyContent //-->
@@ -56,7 +57,18 @@
   </div>
 </footer>
 
-<?php echo $oscTemplate->getBlocks('footer_scripts'); ?>
+<?php echo $oscTemplate->getBlocks('footer_scripts'); 
 
+ if (STORE_PAGE_PARSE_TIME == 'true') {
+   $parse_time = $oscTemplate->getdebuginfo();
+    if (DISPLAY_PAGE_PARSE_TIME == 'true') {
+      echo '<span class="smallText">Parse Time: ' . $parse_time . 's</span>';
+    }
+  }
+?>
 </body>
 </html>
+<?php
+  if ( (GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded == true) && ($ini_zlib_output_compression < 1) ) {
+      tep_gzip_output(GZIP_LEVEL);
+  }
