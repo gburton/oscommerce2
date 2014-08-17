@@ -39,7 +39,22 @@
 
 </div> <!-- bodyWrapper //-->
 
-<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<footer>
+  <div class="container-fluid row-fluid">
+    <div class="col-sm-12 text-center"><?php echo FOOTER_TEXT_BODY; ?></div>
+    <?php
+    if ($banner = tep_banner_exists('dynamic', 'footer')) {
+      ?>
+
+      <div class="col-sm-12 text-center">
+        <?php echo tep_display_banner('static', $banner); ?>
+      </div>
+
+      <?php
+    }
+    ?>
+  </div>
+</footer>
 
 <?php echo $oscTemplate->getBlocks('footer_scripts'); ?>
 
