@@ -96,7 +96,7 @@
       </div>
       
       <div class="form-group has-feedback">
-        <label for="adminPassword" class="control-label col-xs-3">Administrator Username</label>
+        <label for="adminPassword" class="control-label col-xs-3">Administrator Password</label>
         <div class="col-xs-9">
           <?php echo osc_draw_input_field('CFG_ADMINISTRATOR_PASSWORD', NULL, 'required aria-required="true" id="adminPassword"'); ?>
           <span class="glyphicon glyphicon-asterisk form-control-feedback inputRequirement"></span>
