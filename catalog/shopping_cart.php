@@ -92,7 +92,7 @@
         }
       }
 
-      $products_name .= '<br><span class="row col-xs-4">' . tep_draw_input_field('cart_quantity[]', $products[$i]['quantity'], 'class="pull-left form-control"') . tep_draw_hidden_field('products_id[]', $products[$i]['id']) . '</span>&nbsp;' . tep_draw_button(NULL, 'glyphicon glyphicon-refresh', NULL, NULL, NULL, 'btn-info') . '&nbsp;' . tep_draw_button(NULL, 'glyphicon glyphicon-remove', tep_href_link(FILENAME_SHOPPING_CART, 'products_id=' . $products[$i]['id'] . '&action=remove_product'), NULL, NULL, 'btn-danger');
+      $products_name .= '<br><span class="row col-xs-4">' . tep_draw_input_field('cart_quantity[]', $products[$i]['quantity'], 'class="pull-left form-control"') . tep_draw_hidden_field('products_id[]', $products[$i]['id']) . '</span>&nbsp;' . tep_draw_button(NULL, 'glyphicon glyphicon-refresh', tep_href_link(FILENAME_SHOPPING_CART, 'products_id=' . $products[$i]['id'] . '&action=update_product'), NULL, NULL, 'btn-info') . '&nbsp;' . tep_draw_button(NULL, 'glyphicon glyphicon-remove', tep_href_link(FILENAME_SHOPPING_CART, 'products_id=' . $products[$i]['id'] . '&action=remove_product'), NULL, NULL, 'btn-danger');
 
       $products_name .= '</td>';
 
