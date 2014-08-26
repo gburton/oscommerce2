@@ -5,7 +5,7 @@
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2013 osCommerce
+  Copyright (c) 2014 osCommerce
 
   Released under the GNU General Public License
 */
@@ -96,17 +96,15 @@
       </div>
       
       <div class="form-group has-feedback">
-        <label for="adminPassword" class="control-label col-xs-3">Administrator Username</label>
+        <label for="adminPassword" class="control-label col-xs-3">Administrator Password</label>
         <div class="col-xs-9">
           <?php echo osc_draw_input_field('CFG_ADMINISTRATOR_PASSWORD', NULL, 'required aria-required="true" id="adminPassword"'); ?>
           <span class="glyphicon glyphicon-asterisk form-control-feedback inputRequirement"></span>
           <span class="help-block">The password to use for the administrator account.</span>
         </div>
       </div>
-      
-      
-      
-      <?php
+
+<?php
   if (osc_is_writable($dir_fs_document_root) && osc_is_writable($dir_fs_document_root . 'admin')) {
 ?>
       <div class="form-group has-feedback">
