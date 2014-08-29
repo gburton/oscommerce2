@@ -17,10 +17,7 @@
   }
  
   require(DIR_WS_LANGUAGES . $_SESSION['language'] . '/' . FILENAME_PRODUCT_INFO);
-  $product = new product($_GET['products_id']);
-  $attributes = new attributes($_GET['products_id']);
-  $reviews = new reviews($_GET['products_id']);
- 
+
   if (!is_null($product->getModel())) {
 // add the products model to the breadcrumb trail
   $breadcrumb->add($product->getModel(), tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $product->getId()));
