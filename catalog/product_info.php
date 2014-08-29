@@ -49,7 +49,7 @@
     $product->countUpdate();
  
     if ($new_price = tep_get_products_special_price($product->getId())) {
-      $products_price = '<del>' . $currencies->display_price($product->getPrice(), tep_get_tax_rate($product->getProducts_tax_class_id())) . '</del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($product->products_tax_class_id())) . '</span>';
+      $products_price = '<del>' . $currencies->display_price($product->getPrice(), tep_get_tax_rate($product->getProducts_tax_class_id())) . '</del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($product->getProducts_tax_class_id())) . '</span>';
     } else {
       $products_price = $currencies->display_price($product->getPrice(), tep_get_tax_rate($product->getProducts_tax_class_id()));
     }
