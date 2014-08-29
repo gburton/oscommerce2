@@ -17,15 +17,22 @@
   }
  
   require(DIR_WS_LANGUAGES . $_SESSION['language'] . '/' . FILENAME_PRODUCT_INFO);
+  
+  $id = $product->getId();
+  $name = $product->getName();
+  $model = $product->getModel();
+  $image = $product->getImage();
+  $price = $product->getPrice(); 
+  $products_tax_class_id = $product->getProducts_tax_class_id();
 
-  if (!is_null($product->getModel())) {
+  if (!is_null($model)) {
 // add the products model to the breadcrumb trail
-  $breadcrumb->add($product->getModel(), tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $product->getId()));
+  $breadcrumb->add($model, tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $id));
   }
  
   require(DIR_WS_INCLUDES . 'template_top.php');
  
-  if (is_null($product->getId())) {
+  if (is_null($id)) {
     header('HTTP/1.0 404 Not Found');  
 ?>
  
@@ -46,16 +53,16 @@
  
     $product->countUpdate();
  
-    if ($new_price = tep_get_products_special_price($product->getId())) {
-      $products_price = '<del>' . $currencies->display_price($product->getPrice(), tep_get_tax_rate($product->getProducts_tax_class_id())) . '</del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($product->getProducts_tax_class_id())) . '</span>';
+    if ($new_price = tep_get_products_special_price($id)) {
+      $products_price = '<del>' . $currencies->display_price($price, tep_get_tax_rate($products_tax_class_id)) . '</del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($products_tax_class_id)) . '</span>';
     } else {
-      $products_price = $currencies->display_price($product->getPrice(), tep_get_tax_rate($product->getProducts_tax_class_id()));
+      $products_price = $currencies->display_price($price, tep_get_tax_rate($products_tax_class_id));
     }
  
-    if (!is_null($product->getModel())) {
-      $products_name = $product->getName() . '<br /><span class="smallText">[' . $product->getModel() . ']</span>';
+    if (!is_null($model)) {
+      $products_name = $name . '<br /><span class="smallText">[' . $model . ']</span>';
     } else {
-      $products_name = $product->getName();
+      $products_name = $name;
     }
 ?>
  
@@ -70,7 +77,7 @@
   <div class="contentText">
  
 <?php
-    if (tep_not_null($product->getImage())) {
+    if (tep_not_null($image)) {
       $photoset_layout = '1';
  
       $pi_query = $product->getHtmlcontent();
@@ -116,7 +123,7 @@
 ?>
  
     <div id="piGal">
-      <?php echo tep_image(DIR_WS_IMAGES . $product->getImage(), addslashes($product->getName())); ?>
+      <?php echo tep_image(DIR_WS_IMAGES . $image, addslashes($name)); ?>
     </div>
  
 <?php
@@ -209,7 +216,7 @@ $(function() {
 ?>
  
   <div class="row">
-    <div class="col-sm-6 text-right pull-right"><?php echo tep_draw_hidden_field('products_id', $product->getId()) . tep_draw_button(IMAGE_BUTTON_IN_CART, 'glyphicon glyphicon-shopping-cart', null, 'primary', null, 'btn-success'); ?></div>
+    <div class="col-sm-6 text-right pull-right"><?php echo tep_draw_hidden_field('products_id', $id) . tep_draw_button(IMAGE_BUTTON_IN_CART, 'glyphicon glyphicon-shopping-cart', null, 'primary', null, 'btn-success'); ?></div>
     <div class="col-sm-6"><?php echo tep_draw_button(IMAGE_BUTTON_REVIEWS . (($reviews->getReviews()['count'] > 0) ? ' (' . $reviews->getReviews()['count'] . ')' : ''), 'glyphicon glyphicon-comment', tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params())); ?></div>
   </div>
  
