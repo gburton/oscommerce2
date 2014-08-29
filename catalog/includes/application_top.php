@@ -409,9 +409,16 @@
 // include the breadcrumb class and start the breadcrumb trail
   require('includes/classes/breadcrumb.php');
   $breadcrumb = new breadcrumb;
-require('includes/classes/products.php');
-require('includes/classes/attributes.php');
-require('includes/classes/reviews.php');
+
+//load product classes
+  if ( isset($_GET['products_id']) ) { 
+    require('includes/classes/products.php');
+    require('includes/classes/attributes.php');
+    require('includes/classes/reviews.php');
+    $product = new product($_GET['products_id']);
+    $attributes = new attributes($_GET['products_id']);
+    $reviews = new reviews($_GET['products_id']);
+  }
 
   $breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
   $breadcrumb->add(HEADER_TITLE_CATALOG, tep_href_link(FILENAME_DEFAULT));
