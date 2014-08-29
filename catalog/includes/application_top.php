@@ -409,7 +409,8 @@
 // include the breadcrumb class and start the breadcrumb trail
   require('includes/classes/breadcrumb.php');
   $breadcrumb = new breadcrumb;
-
+require('includes/classes/products.php');
+require('includes/classes/attributes.php');
   $breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
   $breadcrumb->add(HEADER_TITLE_CATALOG, tep_href_link(FILENAME_DEFAULT));
 
