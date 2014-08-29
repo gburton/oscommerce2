@@ -19,6 +19,7 @@
   require(DIR_WS_LANGUAGES . $_SESSION['language'] . '/' . FILENAME_PRODUCT_INFO);
   $product = new product($_GET['products_id']);
   $attributes = new attributes($_GET['products_id']);
+  $reviews = new reviews($_GET['products_id']);
  
   if (!is_null($product->getModel())) {
 // add the products model to the breadcrumb trail
@@ -207,13 +208,12 @@ $(function() {
   </div>
  
 <?php
-    $reviews_query = tep_db_query("select count(*) as count from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.products_id = '" . (int)$_GET['products_id'] . "' and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$_SESSION['languages_id'] . "' and reviews_status = 1");
-    $reviews = tep_db_fetch_array($reviews_query);
+    $reviews->getReviews();
 ?>
  
   <div class="row">
     <div class="col-sm-6 text-right pull-right"><?php echo tep_draw_hidden_field('products_id', $product->getId()) . tep_draw_button(IMAGE_BUTTON_IN_CART, 'glyphicon glyphicon-shopping-cart', null, 'primary', null, 'btn-success'); ?></div>
-    <div class="col-sm-6"><?php echo tep_draw_button(IMAGE_BUTTON_REVIEWS . (($reviews['count'] > 0) ? ' (' . $reviews['count'] . ')' : ''), 'glyphicon glyphicon-comment', tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params())); ?></div>
+    <div class="col-sm-6"><?php echo tep_draw_button(IMAGE_BUTTON_REVIEWS . (($reviews->getReviews()['count'] > 0) ? ' (' . $reviews->getReviews()['count'] . ')' : ''), 'glyphicon glyphicon-comment', tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params())); ?></div>
   </div>
  
 <?php
