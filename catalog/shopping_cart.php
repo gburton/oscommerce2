@@ -151,8 +151,6 @@
 
 </div>
 
-</form>
-
 <?php
   } else {
 ?>
