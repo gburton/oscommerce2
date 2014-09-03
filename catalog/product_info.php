@@ -19,7 +19,7 @@
   require(DIR_WS_LANGUAGES . $_SESSION['language'] . '/' . FILENAME_PRODUCT_INFO);
   
   $id = $product->getId();
-  $name = $product->getName();R
+  $name = $product->getName();
   $model = $product->getModel();
   $image = $product->getImage();
   $price = $product->getPrice(); 
