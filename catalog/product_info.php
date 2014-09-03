@@ -19,7 +19,7 @@
   require(DIR_WS_LANGUAGES . $_SESSION['language'] . '/' . FILENAME_PRODUCT_INFO);
   
   $id = $product->getId();
-  $name = $product->getName();
+  $name = $product->getName();R
   $model = $product->getModel();
   $image = $product->getImage();
   $price = $product->getPrice(); 
@@ -203,7 +203,7 @@ $(function() {
     if ($product->getDate_available() > date('Y-m-d H:i:s')) {
 ?>
  
-    <div class="alert alert-info"><?php echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($product_info['products_date_available'])); ?></div>
+    <div class="alert alert-info"><?php echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($product->getDate_Available())); ?></div>
  
 <?php
     }
