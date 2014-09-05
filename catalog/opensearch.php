@@ -51,6 +51,9 @@
   <InputEncoding>UTF-8</InputEncoding>
   <Url type="text/html" method="get" template="<?php echo tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords={searchTerms}', 'NONSSL', false); ?>" />
 </OpenSearchDescription>
+
 <?php
-  require('includes/application_bottom.php');
+  if ( (GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded == true) && ($ini_zlib_output_compression < 1) ) {
+      tep_gzip_output(GZIP_LEVEL);
+  }
 ?>

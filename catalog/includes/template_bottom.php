@@ -9,6 +9,7 @@
 
   Released under the GNU General Public License
 */
+
 ?>
 
 </div> <!-- bodyContent //-->
@@ -39,9 +40,35 @@
 
 </div> <!-- bodyWrapper //-->
 
-<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<footer>
+  <div class="container-fluid row-fluid">
+    <div class="col-sm-12 text-center"><?php echo FOOTER_TEXT_BODY; ?></div>
+    <?php
+    if ($banner = tep_banner_exists('dynamic', 'footer')) {
+      ?>
 
-<?php echo $oscTemplate->getBlocks('footer_scripts'); ?>
+      <div class="col-sm-12 text-center">
+        <?php echo tep_display_banner('static', $banner); ?>
+      </div>
 
+      <?php
+    }
+    ?>
+  </div>
+</footer>
+
+<?php echo $oscTemplate->getBlocks('footer_scripts'); 
+
+ if (STORE_PAGE_PARSE_TIME == 'true') {
+   $parse_time = $oscTemplate->getdebuginfo();
+    if (DISPLAY_PAGE_PARSE_TIME == 'true') {
+      echo '<span class="smallText">Parse Time: ' . $parse_time . 's</span>';
+    }
+  }
+?>
 </body>
 </html>
+<?php
+  if ( (GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded == true) && ($ini_zlib_output_compression < 1) ) {
+      tep_gzip_output(GZIP_LEVEL);
+  }
