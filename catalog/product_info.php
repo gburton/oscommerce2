@@ -178,14 +178,16 @@ $(function() {
     <div class="row">
       <div class="col-sm-6">
 <?php
-                                             
+  $products_options_array = $attributes->getProductsOptionsArray();
+  $selected_attribute = $attributes->getSelectedAttribute();
+  
   foreach ( $attributes->getProductsOptionNameArray() as $key => $value )  {
    
 ?>
       <div class="form-group">
         <label class="control-label col-xs-3"><?php echo $key . ':'; ?></label>
         <div class="col-xs-9">
-          <?php echo tep_draw_pull_down_menu('id[' . $value . ']', $attributes->getProductsOptionsArray()[$value], $attributes->getSelectedAttribute()[$value]); ?>
+          <?php echo tep_draw_pull_down_menu('id[' . $value . ']', $products_options_array[$value], $selected_attribute[$value]); ?>
         </div>
       </div>
     <?php
