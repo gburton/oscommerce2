@@ -12,11 +12,11 @@
  
   require('includes/application_top.php');
  
-  if (!isset($_GET['products_id'])) {
+  if (is_null($_GET[$products_id])) {
     tep_redirect(tep_href_link(FILENAME_DEFAULT));
     exit;
   }
- 
+  
   require(DIR_WS_LANGUAGES . $_SESSION['language'] . '/' . FILENAME_PRODUCT_INFO);
   
   $id = $product->getId();
@@ -81,8 +81,8 @@
     if (tep_not_null($image)) {
       $photoset_layout = '1';
  
-      $pi_query = $product->getHtmlcontent();
-      $pi_total = tep_db_num_rows($pi_query);
+      $pi_array = $product->getHtmlcontent();
+      $pi_total = sizeof($pi_array);
  
       if ($pi_total > 0) {
         $pi_sub = $pi_total-1;
@@ -103,7 +103,7 @@
         $pi_counter = 0;
         $pi_html = array();
  
-        while ($pi = tep_db_fetch_array($pi_query)) {
+        foreach ($pi_array as $pi) {
           $pi_counter++;
  
           if (tep_not_null($pi['htmlcontent'])) {

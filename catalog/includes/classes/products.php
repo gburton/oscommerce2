@@ -22,11 +22,9 @@ class Product
   protected $products_date_available;
   protected $products_tax_class_id;
  
-  public function __construct($products_id) {
-   
-    $product_info_query = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$_GET['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
-   
-    $data = tep_db_fetch_array($product_info_query);
+  public function __construct($products_id = '') {
+     
+    $data = getData($products_id)
        
       $this->model = $data['products_model'];
       $this->name = $data['products_name'];
@@ -39,6 +37,13 @@ class Product
       $this->products_tax_class_id = $data['products_tax_class_id'];
   }
  
+  public function getData($products_id) 
+  {
+    $product_info_query = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$_GET['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+    
+    return tep_db_fetch_array($product_info_query);    
+  }
+  
   public function getModel()
   {
     return $this->model;
@@ -72,7 +77,8 @@ class Product
  
   public function getHtmlcontent()
   {
-  return tep_db_query("select image, htmlcontent from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . (int)$this->id . "' order by sort_order");
+  $pi_query = tep_db_query("select image, htmlcontent from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . (int)$this->id . "' order by sort_order");
+  return tep_db_fetch_array($pi_query);
   }
    
   public function getPrice()
