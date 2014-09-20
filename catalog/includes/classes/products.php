@@ -71,14 +71,14 @@ class Product
  
   public function countUpdate()
   {
-  return tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . (int)$this->id . "' and language_id = '" . (int)$_SESSION['languages_id'] . "'");
+    return tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . (int)$this->id . "' and language_id = '" . (int)$_SESSION['languages_id'] . "'");
    
   }
  
   public function getHtmlcontent()
   {
-  $pi_query = tep_db_query("select image, htmlcontent from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . (int)$this->id . "' order by sort_order");
-  return tep_db_fetch_array($pi_query);
+    $pi_query = tep_db_query("select image, htmlcontent from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . (int)$this->id . "' order by sort_order");
+    return tep_db_fetch_array($pi_query);
   }
    
   public function getPrice()
