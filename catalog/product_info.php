@@ -25,11 +25,6 @@
   $image = $product->getImage();
   $price = $product->getPrice(); 
   $products_tax_class_id = $product->getProducts_tax_class_id();
-
-  if (!is_null($model)) {
-// add the products model to the breadcrumb trail
-  $breadcrumb->add($model, tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $id));
-  }
  
   require(DIR_WS_INCLUDES . 'template_top.php');
  
@@ -51,20 +46,25 @@
  
 <?php
   } else {
- 
+  
+    $products_name = $name;
+    
+    if (!is_null($model)) {
+     $products_name .= '<br /><span class="smallText">[' . $model . ']</span>';
+
+// add the products model to the breadcrumb trail
+     $breadcrumb->add($model, tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $id));
+    }
+    
+// exexcute the product count query
     $product->countUpdate();
  
+// check for special price otherwise will return the list price
     if ($new_price = tep_get_products_special_price($id)) {
       $products_price = '<del>' . $currencies->display_price($price, tep_get_tax_rate($products_tax_class_id)) . '</del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($products_tax_class_id)) . '</span>';
     } else {
       $products_price = $currencies->display_price($price, tep_get_tax_rate($products_tax_class_id));
-    }
- 
-    $products_name = $name;
-    
-    if (!is_null($model)) {
-      $products_name .= '<br /><span class="smallText">[' . $model . ']</span>';
-    }
+    }    
 ?>
  
 <?php echo tep_draw_form('cart_quantity', tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_product'), 'post', 'class="form-horizontal" role="form"'); ?>
