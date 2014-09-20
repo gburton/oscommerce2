@@ -59,11 +59,10 @@
       $products_price = $currencies->display_price($price, tep_get_tax_rate($products_tax_class_id));
     }
  
+    $products_name = $name;
+    
     if (!is_null($model)) {
-      $products_name = $name . '<br /><span class="smallText">[' . $model . ']</span>';
-    } else {
-      $products_name = $name;
-    }
+      $products_name .= '<br /><span class="smallText">[' . $model . ']</span>';
 ?>
  
 <?php echo tep_draw_form('cart_quantity', tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_product'), 'post', 'class="form-horizontal" role="form"'); ?>
@@ -165,10 +164,8 @@ $(function() {
  
 <?php echo stripslashes($product->getDescription()); ?>
  
-<?php
-    
-    if (tep_not_null($attributes->getProductsOptionNameArray())) {
-     
+<?php    
+    if (tep_not_null($attributes->getProductsOptionNameArray())) {     
 ?>
  
     <div class="page-header">
@@ -181,8 +178,7 @@ $(function() {
   $products_options_array = $attributes->getProductsOptionsArray();
   $selected_attribute = $attributes->getSelectedAttribute();
   
-  foreach ( $attributes->getProductsOptionNameArray() as $key => $value )  {
-   
+  foreach ( $attributes->getProductsOptionNameArray() as $key => $value )  {   
 ?>
       <div class="form-group">
         <label class="control-label col-xs-3"><?php echo $key . ':'; ?></label>
@@ -191,7 +187,7 @@ $(function() {
         </div>
       </div>
     <?php
-      }
+  }
 ?>
       </div>
     </div>
