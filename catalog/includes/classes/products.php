@@ -24,7 +24,7 @@ class Product
  
   public function __construct($products_id = '') {
      
-    $data = getData($products_id)
+    $data = $this->getData($products_id);
        
       $this->model = $data['products_model'];
       $this->name = $data['products_name'];
