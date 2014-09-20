@@ -23,8 +23,8 @@
       global $oscTemplate;
 
       $output = '';
-      
-      $output .=.  '<div class="contentContainer">' .
+
+      $output .=   '<div class="contentContainer">' .
                    '  <div class="contentText">' .
                    '    <div class="alert alert-warning"> . $group['title'] . </div>'.
                    '  </div>' .
