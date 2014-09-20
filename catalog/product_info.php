@@ -63,6 +63,7 @@
     
     if (!is_null($model)) {
       $products_name .= '<br /><span class="smallText">[' . $model . ']</span>';
+    }
 ?>
  
 <?php echo tep_draw_form('cart_quantity', tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_product'), 'post', 'class="form-horizontal" role="form"'); ?>
