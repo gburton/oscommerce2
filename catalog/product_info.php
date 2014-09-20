@@ -14,6 +14,7 @@
  
   if (!isset($_GET['products_id'])) {
     tep_redirect(tep_href_link(FILENAME_DEFAULT));
+    exit;
   }
  
   require(DIR_WS_LANGUAGES . $_SESSION['language'] . '/' . FILENAME_PRODUCT_INFO);
