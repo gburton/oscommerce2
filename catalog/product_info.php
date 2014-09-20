@@ -12,7 +12,7 @@
  
   require('includes/application_top.php');
  
-  if (is_null($_GET[$products_id])) {
+  if (!isset($_GET[$products_id])) {
     tep_redirect(tep_href_link(FILENAME_DEFAULT));
     exit;
   }
