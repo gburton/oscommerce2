@@ -24,14 +24,16 @@
 
       $output = '';
       
-      $output .= '<div class="contentContainer">'.
-                   '  <div class="contentText">'.
-                   '  <div class="alert alert-warning"> . $group['title'] . </div>'.
-                   '</div>'.
+      $output .=.  '<div class="contentContainer">' .
+                   '  <div class="contentText">' .
+                   '    <div class="alert alert-warning"> . $group['title'] . </div>'.
+                   '  </div>' .
                    ' <div class="text-right">';
+     
       $output .= tep_draw_button(IMAGE_BUTTON_CONTINUE, 'glyphicon glyphicon-chevron-right', tep_href_link(FILENAME_DEFAULT), null, null, 'btn-default btn-block');
-      $output .= '</div>' .
-                 '</div>';  
+     
+      $output .=   '</div>' .
+                   '</div>';  
                  
       $oscTemplate->addContent($output, $this->group);
     }
