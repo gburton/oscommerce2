@@ -28,7 +28,7 @@
     echo $oscTemplate->getContent('notfound'); 
   } else {
     
-// send data to prodcut page module
+// send data to product page module
   $oscTemplate->_data['product'] =  $data;
     
   if (!is_null($data['products_model'])) {
