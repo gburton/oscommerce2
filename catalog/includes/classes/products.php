@@ -41,7 +41,7 @@ class Product
       $this->image = $data['products_image'];
       $this->url = $data['products_url'];
       $this->price = $data['products_price'];
-      $this->specialprice = tep_get_products_special_price($this->id);
+      $this->specialprice = tep_get_products_special_price($data['products_id']);
       $this->qty = $data['products_quantity'];
       $this->products_date_available = $data['products_date_available'];
       $this->products_tax_class_id = $data['products_tax_class_id'];
