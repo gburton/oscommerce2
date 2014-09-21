@@ -28,11 +28,10 @@
     echo $oscTemplate->getContent('notfound'); 
   } else {
     
-// send data to page module
+// send data to prodcut page module
   $oscTemplate->_data['product'] =  $data;
     
   if (!is_null($data['products_model'])) {
-
 // add the products model to the breadcrumb trail
      $breadcrumb->add($data['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $data['products_id']));
     }
@@ -41,7 +40,9 @@
     $product->countUpdate(); 
 ?>
  
-<?php  
+<?php 
+// print the product page module content 
+// TODO: pass all html content to product page module
     echo $oscTemplate->getContent('product');
 ?>
   
