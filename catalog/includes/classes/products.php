@@ -128,7 +128,7 @@ class Product
   }
   
 // return category id
-  public function getProductcategory ()
+  public function getProductcategory()
   {
     return $this->category_id;
   }
