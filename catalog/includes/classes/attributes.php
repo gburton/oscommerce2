@@ -18,6 +18,7 @@ class Attributes extends product
   protected $selected_attribute;
  
   public function __construct($products_id = '') {
+    global $currencies;
     
     if (!$products_id) return false;
        
@@ -34,8 +35,7 @@ class Attributes extends product
  
         while ($products_options = tep_db_fetch_array($products_options_query)) {
           $text =  $products_options['products_options_values_name'];
- 
-          $currencies = new currencies();
+
          
           if ($products_options['options_values_price'] != '0') {
             $text .= ' ' . $products_options['price_prefix'] . $currencies->display_price($products_options['options_values_price'], tep_get_tax_rate($this->getProducts_tax_class_id()));
