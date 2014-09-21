@@ -40,12 +40,7 @@
 // exexcute the product count query
     $product->countUpdate();
  
-// check for special price otherwise will return the list price
-    if ($new_price = tep_get_products_special_price($data['products_id'])) {
-      $products_price = '<del>' . $currencies->display_price($data['products_price'], tep_get_tax_rate($data['products_tax_class_id'])) . '</del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($data['products_tax_class_id'])) . '</span>';
-    } else {
-      $products_price = $currencies->display_price($data['products_price'], tep_get_tax_rate($data['products_tax_class_id']));
-    }    
+ 
 ?>
  
 <?php  
