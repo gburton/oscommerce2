@@ -411,14 +411,19 @@
   $breadcrumb = new breadcrumb;
 
 //load product classes
-  if ( isset($_GET['products_id']) ) { 
-    require('includes/classes/products.php');
-    require('includes/classes/attributes.php');
-    require('includes/classes/reviews.php');
-    $product = new product($_GET['products_id']);
-    $attributes = new attributes($_GET['products_id']);
-    $reviews = new reviews($_GET['products_id']);
-  }
+  require('includes/classes/products.php');
+  require('includes/classes/attributes.php');
+  require('includes/classes/reviews.php');
+  
+  $products_id = '';
+
+  if ( isset($_GET['products_id']) ) {   
+    $products_id = $_GET['products_id'];
+  }   
+
+  $product = new product($products_id);
+  $attributes = new attributes($products_id);
+  $reviews = new reviews($products_id);
 
   $breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
   $breadcrumb->add(HEADER_TITLE_CATALOG, tep_href_link(FILENAME_DEFAULT));

@@ -17,7 +17,9 @@ class Attributes extends product
   protected $products_options_array;
   protected $selected_attribute;
  
-  public function __construct($products_id) {
+  public function __construct($products_id = '') {
+    
+    if (!$products_id) return false;
        
      $products_attributes_query = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . (int)$_GET['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . (int)$_SESSION['languages_id'] . "' order by popt.products_options_name");
    
