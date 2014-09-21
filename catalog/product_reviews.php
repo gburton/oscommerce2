@@ -83,7 +83,7 @@
   </div>
 <?php
 
-  $reviews_split = new splitPageResults($reviews->getReviews(), MAX_DISPLAY_NEW_REVIEWS);
+  $reviews_split = $reviews->getReviewssplit($reviews->getReviewsraw());
 
   if ($reviews_split->number_of_rows > 0) {
     if ((PREV_NEXT_BAR_LOCATION == '1') || (PREV_NEXT_BAR_LOCATION == '3')) {
