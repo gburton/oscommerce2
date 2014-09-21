@@ -27,11 +27,11 @@
     header('HTTP/1.0 404 Not Found');  
     echo $oscTemplate->getContent('notfound'); 
   } else {
-  
-    $products_name = $data['products_name'];
     
-    if (!is_null($data['products_model'])) {
-     $products_name .= '<br /><span class="smallText">[' . $data['products_model'] . ']</span>';
+// send data to page module
+  $oscTemplate->_data['product'] =  $data;
+    
+  if (!is_null($data['products_model'])) {
 
 // add the products model to the breadcrumb trail
      $breadcrumb->add($data['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $data['products_id']));
@@ -48,12 +48,13 @@
     }    
 ?>
  
-<?php echo tep_draw_form('cart_quantity', tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_product'), 'post', 'class="form-horizontal" role="form"'); ?>
+<?php  
+    echo $oscTemplate->getContent('product');
+?>
  
-<div class="page-header">
-  <h1 class="pull-right"><?php echo $products_price; ?></h1>
-  <h1><?php echo $products_name; ?></h1>
-</div>
+
+
+
  
 <div class="contentContainer">
   <div class="contentText">
