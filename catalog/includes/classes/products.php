@@ -12,6 +12,7 @@
 
 class Product
 {
+  protected $data;
   protected $model;
   protected $name;
   protected $id;
@@ -28,6 +29,7 @@ class Product
     
     $data =  tep_db_fetch_array($product_info_query);    
        
+      $this->data = $data;
       $this->model = $data['products_model'];
       $this->name = $data['products_name'];
       $this->id = $data['products_id'];
@@ -37,9 +39,10 @@ class Product
       $this->price = $data['products_price'];
       $this->products_date_available = $data['products_date_available'];
       $this->products_tax_class_id = $data['products_tax_class_id'];
+    
   }
  
-  public function getData($products_id) 
+  public function getData() 
   {
     return $this->data; 
   }
@@ -76,8 +79,7 @@ class Product
  
   public function getHtmlcontent()
   {
-    $pi_query = tep_db_query("select image, htmlcontent from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . (int)$this->id . "' order by sort_order");
-    return tep_db_fetch_array($pi_query);
+    return tep_db_query("select image, htmlcontent from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . (int)$this->id . "' order by sort_order");
   }
    
   public function getPrice()

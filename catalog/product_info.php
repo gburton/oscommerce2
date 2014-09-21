@@ -67,9 +67,9 @@
     if (tep_not_null($image)) {
       $photoset_layout = '1';
  
-      $pi_array = $product->getHtmlcontent();
-      $pi_total = sizeof($pi_array);
- 
+      $pi_query = $product->getHtmlcontent();
+      $pi_total = tep_db_num_rows($pi_query);
+
       if ($pi_total > 0) {
         $pi_sub = $pi_total-1;
  
@@ -88,8 +88,8 @@
 <?php
         $pi_counter = 0;
         $pi_html = array();
- 
-        foreach ($pi_array as $pi) {
+
+         while ($pi = tep_db_fetch_array($pi_query)) {
           $pi_counter++;
  
           if (tep_not_null($pi['htmlcontent'])) {
