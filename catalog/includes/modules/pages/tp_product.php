@@ -26,11 +26,10 @@
 
       $output .= tep_draw_form('cart_quantity', tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_product'), 'post', 'class="form-horizontal" role="form"');
       
-      // check for special price otherwise will return the list price
-    
-      
       $output .=   '<div class="page-header">';
       $output .=   '  <h1 class="pull-right">';
+
+// check for special price otherwise will return the list price
       if ($new_price = tep_get_products_special_price($this->data['products_id'])) {
       $output .= '<del>' . $currencies->display_price($this->data['products_price'], tep_get_tax_rate($this->data['products_tax_class_id'])) . '</del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($this->data['products_tax_class_id'])) . '</span>';
       } else {
@@ -44,10 +43,10 @@
       $output .= '<br />' .
                  '<span class="smallText">[' . $this->data['products_model'] . ']</span>'; 
       }
-      
-      
         
-      $output .= '</div>';
+      $output .= '</div>' .
+                 '<div class="contentContainer"> ' .
+                 '<div class="contentText">';
                       
       $oscTemplate->addContent($output, $this->group);
     }
