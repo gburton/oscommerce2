@@ -55,14 +55,17 @@ class Attributes extends product
     }
   }
        
+// return products options name array  
   public function getProductsOptionNameArray() {
    return $this->products_options_name_arr;
   }
  
+// return products options array 
   public function getProductsOptionsArray() {
    return $this->products_options_array;
   }    
- 
+
+// return the actually selected attribute taken from cart $_SESSION
   public function getSelectedAttribute() {
    return $this->selected_attribute;
   }    

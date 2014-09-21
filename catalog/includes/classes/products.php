@@ -48,66 +48,79 @@ class Product
     
   }
  
+// returns product data as array 
   public function getData() 
   {
     return $this->data; 
   }
-  
+ 
+// returns product model 
   public function getModel()
   {
     return $this->model;
   }
  
+// returns product name 
   public function getName()
   {
     return $this->name;
   }
- 
+
+// returns product ID 
   public function getId()
   {
     return $this->id;
   }
- 
+
+// returns product description 
   public function getDescription()
   {
     return $this->description;
   }
- 
+
+// returns product main image 
   public function getImage()
   {
     return $this->image;
   }
  
+// updates product count
   public function countUpdate()
   {
     return tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . (int)$this->id . "' and language_id = '" . (int)$_SESSION['languages_id'] . "'");   
   }
- 
+
+// returns product multiple images and htmlcontent  
   public function getHtmlcontent()
   {
     return tep_db_query("select image, htmlcontent from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . (int)$this->id . "' order by sort_order");
   }
-   
+
+// returns product price   
   public function getPrice()
   {
     return $this->price;
   }
- 
+
+ // returns product special price
   public function getSpecialprice()
   {
     return $this->specialprice;
   }
-  
+
+// returns product quantity  
   public function getQty()
   {
     return $this->qty;
   }
-  
+
+// returns product data available  
   public function getDate_Available()
   {
     return $this->products_date_available;
   }
- 
+
+// returns product tax class id 
   public function getProducts_tax_class_id()
   {
     return $this->products_tax_class_id;
