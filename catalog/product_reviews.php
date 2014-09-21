@@ -83,7 +83,7 @@
   </div>
 <?php
 
-  $reviews_split = $reviews->getReviewssplit($reviews->getReviewsraw());
+  $reviews_split = $reviews->getReviewssplit($reviews->getReviews());
 
   if ($reviews_split->number_of_rows > 0) {
     if ((PREV_NEXT_BAR_LOCATION == '1') || (PREV_NEXT_BAR_LOCATION == '3')) {
