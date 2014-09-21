@@ -52,10 +52,6 @@
     echo $oscTemplate->getContent('product');
 ?>
  
-
-
-
- 
 <div class="contentContainer">
   <div class="contentText">
  
