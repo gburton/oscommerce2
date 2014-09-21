@@ -38,18 +38,13 @@
     }
     
 // exexcute the product count query
-    $product->countUpdate();
- 
- 
+    $product->countUpdate(); 
 ?>
  
 <?php  
     echo $oscTemplate->getContent('product');
 ?>
- 
-<div class="contentContainer">
-  <div class="contentText">
- 
+  
 <?php
     if (tep_not_null($data['products_image'])) {
       $photoset_layout = '1';
