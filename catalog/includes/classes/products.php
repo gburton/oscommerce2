@@ -24,7 +24,6 @@ class Product
   protected $qty;
   protected $products_date_available;
   protected $products_tax_class_id;
-  protected $category_id;
  
   public function __construct($products_id = '') {
     
@@ -46,7 +45,7 @@ class Product
       $this->qty = $data['products_quantity'];
       $this->products_date_available = $data['products_date_available'];
       $this->products_tax_class_id = $data['products_tax_class_id'];
-      $this->category_id = tep_get_product_path($_data['products_id']);
+ 
   }
  
 // returns product data as array 
@@ -130,7 +129,7 @@ class Product
 // return category id
   public function getProductcategory()
   {
-    return $this->category_id;
+    return tep_get_product_path($data['products_id']);
   }
   
 }
