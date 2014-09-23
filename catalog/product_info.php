@@ -27,10 +27,6 @@
     header('HTTP/1.0 404 Not Found');  
     echo $oscTemplate->getContent('notfound'); 
   } else {
-    
-// send data to product page module
-  $oscTemplate->_data['product'] =  $data;
-    
   if (!is_null($data['products_model'])) {
 // add the products model to the breadcrumb trail
      $breadcrumb->add($data['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $data['products_id']));
