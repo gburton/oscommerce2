@@ -18,7 +18,6 @@ class Product
   protected $id;
   protected $description;
   protected $price;
-  protected $specialprice;
   protected $image;
   protected $url;
   protected $qty;
@@ -41,7 +40,6 @@ class Product
       $this->image = $data['products_image'];
       $this->url = $data['products_url'];
       $this->price = $data['products_price'];
-      $this->specialprice = tep_get_products_special_price($data['products_id']);
       $this->qty = $data['products_quantity'];
       $this->products_date_available = $data['products_date_available'];
       $this->products_tax_class_id = $data['products_tax_class_id']; 
@@ -117,7 +115,7 @@ class Product
  // returns product special price
   public function getSpecialprice()
   {
-    return $this->specialprice;
+    return tep_get_products_special_price($this->data['products_id']);
   }
 
 // returns product quantity  
