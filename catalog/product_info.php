@@ -27,7 +27,8 @@
     header('HTTP/1.0 404 Not Found');  
     echo $oscTemplate->getContent('notfound'); 
   } else {
-  if (!is_null($data['products_model'])) {
+    
+  if (!isset($data['products_model'])) {
 // add the products model to the breadcrumb trail
      $breadcrumb->add($data['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $data['products_id']));
     }
@@ -41,96 +42,7 @@
 // TODO: pass all html content to product page module
     echo $oscTemplate->getContent('product');
 ?>
-  
-<?php
-    if (tep_not_null($data['products_image'])) {
-      $photoset_layout = '1';
- 
-      $pi_query = $product->getHtmlcontent();
-      $pi_total = tep_db_num_rows($pi_query);
-
-      if ($pi_total > 0) {
-        $pi_sub = $pi_total-1;
- 
-        while ($pi_sub > 5) {
-          $photoset_layout .= 5;
-          $pi_sub = $pi_sub-5;
-        }
- 
-        if ($pi_sub > 0) {
-          $photoset_layout .= ($pi_total > 5) ? 5 : $pi_sub;
-        }
-?>
- 
-    <div id="piGal">
- 
-<?php
-        $pi_counter = 0;
-        $pi_html = array();
-
-         while ($pi = tep_db_fetch_array($pi_query)) {
-          $pi_counter++;
- 
-          if (tep_not_null($pi['htmlcontent'])) {
-            $pi_html[] = '<div id="piGalDiv_' . $pi_counter . '">' . $pi['htmlcontent'] . '</div>';
-          }
- 
-          echo tep_image(DIR_WS_IMAGES . $pi['image'], '', '', '', 'id="piGalImg_' . $pi_counter . '"');
-        }
-?>
- 
-    </div>
- 
-<?php
-        if ( !empty($pi_html) ) {
-          echo '    <div style="display: none;">' . implode('', $pi_html) . '</div>';
-        }
-      } else {
-?>
- 
-    <div id="piGal">
-      <?php echo tep_image(DIR_WS_IMAGES . $data['products_image'], addslashes($data['products_name'])); ?>
-    </div>
- 
-<?php
-      }
-    }
-?>
- 
-<script>
-$(function() {
-  $('#piGal').css({
-    'visibility': 'hidden'
-  });
- 
-  $('#piGal').photosetGrid({
-    layout: '<?php echo $photoset_layout; ?>',
-    width: '250px',
-    highresLinks: true,
-    rel: 'pigallery',
-    onComplete: function() {
-      $('#piGal').css({ 'visibility': 'visible'});
- 
-      $('#piGal a').colorbox({
-        maxHeight: '90%',
-        maxWidth: '90%',
-        rel: 'pigallery'
-      });
- 
-      $('#piGal img').each(function() {
-        var imgid = $(this).attr('id').substring(9);
- 
-        if ( $('#piGalDiv_' + imgid).length ) {
-          $(this).parent().colorbox({ inline: true, href: "#piGalDiv_" + imgid });
-        }
-      });
-    }
-  });
-});
-</script>
- 
-<?php echo stripslashes($data['products_description']); ?>
- 
+   
 <?php    
     if (tep_not_null($attributes->getProductsOptionNameArray())) {     
 ?>
@@ -142,6 +54,7 @@ $(function() {
     <div class="row">
       <div class="col-sm-6">
 <?php
+// TODO: pass all attributes html content to attributes content module                                                                  
   $products_options_array = $attributes->getProductsOptionsArray();
   $selected_attribute = $attributes->getSelectedAttribute();
   

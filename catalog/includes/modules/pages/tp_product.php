@@ -13,6 +13,7 @@
   class tp_product {
     var $group = 'product';
     protected $data;
+    var $name;
   
     function prepare() {
       global $oscTemplate, $product;
@@ -21,34 +22,61 @@
     }
 
     function build() {
-      global $oscTemplate, $currencies;
-
-      $output = '';
-
-      $output .= tep_draw_form('cart_quantity', tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_product'), 'post', 'class="form-horizontal" role="form"');
-      
-      $output .=   '<div class="page-header">';
-      $output .=   '  <h1 class="pull-right">';
-
-// check for special price otherwise will return the list price
-      if ($new_price = tep_get_products_special_price($this->data['products_id'])) {
-      $output .= '<del>' . $currencies->display_price($this->data['products_price'], tep_get_tax_rate($this->data['products_tax_class_id'])) . '</del> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($this->data['products_tax_class_id'])) . '</span>';
-      } else {
-        $output .= $currencies->display_price($this->data['products_price'], tep_get_tax_rate($this->data['products_tax_class_id']));
-      }
-      
-      $output .=  '</h1>';
-      $output .=   '  <h1>' . $this->data['products_name'] . '</h1>';
-                   
-      if ( $this->data['products_model'] ) {
-      $output .= '<br />' .
-                 '<span class="smallText">[' . $this->data['products_model'] . ']</span>'; 
-      }
+      global $oscTemplate, $currencies, $product;
+ 
+      $price =   $currencies->display_price($this->data['products_price'], tep_get_tax_rate($this->data['products_tax_class_id']));
         
-      $output .= '</div>' .
-                 '<div class="contentContainer"> ' .
-                 '<div class="contentText">';
-                      
+// check for special price otherwise will return the list price
+      if ($new_price = tep_get_products_special_price($this->data['products_id'])) {  
+        $specialprice = $currencies->display_price($new_price, tep_get_tax_rate($this->data['products_tax_class_id']));
+      } 
+      
+
+    if (tep_not_null($this->data['products_image'])) {
+      $photoset_layout = '1';
+ 
+      $pi_query = $product->getHtmlcontent();
+      $pi_total = tep_db_num_rows($pi_query);
+
+      if ($pi_total > 0) {
+        $pi_sub = $pi_total-1;
+ 
+        while ($pi_sub > 5) {
+          $photoset_layout .= 5;
+          $pi_sub = $pi_sub-5;
+        }
+ 
+        if ($pi_sub > 0) {
+          $photoset_layout .= ($pi_total > 5) ? 5 : $pi_sub;
+        }
+
+ 
+        $pi_counter = 0;
+        $pi_html = array();
+
+         while ($pi = tep_db_fetch_array($pi_query)) {
+          $pi_counter++;
+ 
+          if (tep_not_null($pi['htmlcontent'])) {
+            $image[$pi_counter]['htmlcontent'][] = $pi['htmlcontent'];
+          }
+ 
+            $image[$pi_counter]['image'] = tep_image(DIR_WS_IMAGES . $pi['image'], '', '', '', 'id="piGalImg_' . $pi_counter . '"');
+         }
+
+        if ( !empty($image[$pi_counter]['htmlcontent']) ) {
+           $image[$pi_counter]['none'] = implode('', $image[$pi_counter]['htmlcontent']);
+        }
+        
+      } else {
+        $image = tep_image(DIR_WS_IMAGES . $this->data['products_image'], addslashes($this->data['products_name']));
+      }
+    }
+      
+      ob_start();
+      include DIR_WS_MODULES . 'pages/templates/' . $this->group . '.php';
+      $output = ob_get_clean();
+      
       $oscTemplate->addContent($output, $this->group);
     }
   }
