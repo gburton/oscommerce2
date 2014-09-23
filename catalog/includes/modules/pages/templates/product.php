@@ -20,15 +20,15 @@
   <div class="contentText">
      <div id="piGal">  
 <?php   if (is_array($image))  {  
-          
-          foreach ($image as $img)  {
+          foreach ($image as $key => $img)  {
             echo $img['image'] ; 
+            if ( !empty($img['htmlcontent']) ) {
+              echo '<div style="display: none;">' .  '<div id="piGalDiv_' . $key . '">' . $img['htmlcontent'] . '</div></div>';     
+            }
           } 
 ?>
      </div>
-<?php     if ( !empty($img['htmlcontent']) ) {
-            echo '<div style="display: none;">' .  '<div id="piGalDiv_' . $pi_counter . '">' . $img['none'] . '</div></div>';     
-          }
+<?php     
        } else  {   
     echo $image . '</div>'; 
     } 
