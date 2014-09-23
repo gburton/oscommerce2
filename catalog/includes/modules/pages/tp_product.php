@@ -15,7 +15,8 @@
     protected $data;
   
     function prepare() {
-      global $oscTemplate;
+      global $oscTemplate, $product;
+      $oscTemplate->_data[$this->group] = $product->getData();
       $this->data = $oscTemplate->_data[$this->group];
     }
 
