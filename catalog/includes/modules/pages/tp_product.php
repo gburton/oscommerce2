@@ -12,9 +12,8 @@
 
   class tp_product {
     var $group = 'product';
-    protected $data;
-    var $name;
-  
+
+// class construct
     function prepare() {
       global $oscTemplate, $product;
       $oscTemplate->_data[$this->group] = $product->getData();   
@@ -33,7 +32,7 @@
                     ' <div class="text-right">';
       } else {
         
-      $price =   $currencies->display_price($oscTemplate->_data[$this->group]['products_price'], tep_get_tax_rate($oscTemplate->_data[$this->group]['products_tax_class_id']));
+          $price =   $currencies->display_price($oscTemplate->_data[$this->group]['products_price'], tep_get_tax_rate($oscTemplate->_data[$this->group]['products_tax_class_id']));
         
 // check for special price otherwise will return the list price
       if ($new_price = tep_get_products_special_price($oscTemplate->_data[$this->group]['products_id'])) {  
@@ -60,7 +59,7 @@
         }
       
       } else {
-        $image = tep_image(DIR_WS_IMAGES . $oscTemplate->_data[$this->group]['products_image'], addslashes($oscTemplate->_data[$this->group]['products_name']));
+        $image = $oscTemplate->_data[$this->group]['products_image'];
       }
     }
 
@@ -70,6 +69,6 @@
       $output = ob_get_clean();
     }
       $oscTemplate->addContent($output, $this->group);   
-  }
+   }
  }    
 ?>

@@ -31,7 +31,7 @@
      </div>
 <?php     
        } else  {   
-    echo $image . '</div>'; 
+          echo tep_image(DIR_WS_IMAGES . $image, addslashes($name)) . '</div>'; 
     } 
 ?>  
      
