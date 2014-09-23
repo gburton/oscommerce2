@@ -21,17 +21,13 @@
   
   $data = $product->getData();
 
+  if (isset($data['products_model'])) {
+// add the products model to the breadcrumb trail
+    $breadcrumb->add($data['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $data['products_id']));
+  }
+
   require(DIR_WS_INCLUDES . 'template_top.php');
  
-  if (is_null($data['products_id'])) {
-    header('HTTP/1.0 404 Not Found');  
-    echo $oscTemplate->getContent('notfound'); 
-  } else {
-    
-  if (!isset($data['products_model'])) {
-// add the products model to the breadcrumb trail
-     $breadcrumb->add($data['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $data['products_id']));
-    }
     
 // exexcute the product count query
     $product->countUpdate(); 
@@ -111,7 +107,6 @@
 </form>
  
 <?php
-  }
  
   require(DIR_WS_INCLUDES . 'template_bottom.php');
   require(DIR_WS_INCLUDES . 'application_bottom.php');

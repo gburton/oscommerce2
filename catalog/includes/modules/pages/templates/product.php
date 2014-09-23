@@ -11,9 +11,9 @@
       }
 ?>
   </h1>  
-  <h1><?php echo $this->data['products_name']; ?></h1>
-<?php if (!empty($this->data['products_model'])) { ?> 
-    <span class="smallText">[<?php echo $this->data['products_model'] ?>]</span> 
+  <h1><?php echo $oscTemplate->_data[$this->group]['products_name']; ?></h1>
+<?php if (!empty($oscTemplate->_data[$this->group]['products_model'])) { ?> 
+    <span class="smallText">[<?php echo $oscTemplate->_data[$this->group]['products_model'] ?>]</span> 
 <?php } ?>
 </div>
 <div class="contentContainer">
@@ -65,4 +65,4 @@ $(function() {
   });
 });
 </script>    
-<?php echo stripslashes($this->data['products_description']); ?>    
+<?php echo stripslashes($oscTemplate->_data[$this->group]['products_description']); ?>    
