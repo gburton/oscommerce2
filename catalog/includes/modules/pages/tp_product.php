@@ -40,7 +40,7 @@
         $specialprice = $currencies->display_price($new_price, tep_get_tax_rate($oscTemplate->_data[$this->group]['products_tax_class_id']));
       } 
       
-
+// check if product has multiple images with html content otherwise will return defualt product image
     if (tep_not_null($oscTemplate->_data[$this->group]['products_image'])) {
       $photoset_layout = '1';
  
@@ -63,13 +63,13 @@
         $image = tep_image(DIR_WS_IMAGES . $oscTemplate->_data[$this->group]['products_image'], addslashes($oscTemplate->_data[$this->group]['products_name']));
       }
     }
-      
+
+// loads product page template       
       ob_start();
       include DIR_WS_MODULES . 'pages/templates/' . $this->group . '.php';
       $output = ob_get_clean();
     }
-      $oscTemplate->addContent($output, $this->group);
-   
+      $oscTemplate->addContent($output, $this->group);   
   }
  }    
 ?>

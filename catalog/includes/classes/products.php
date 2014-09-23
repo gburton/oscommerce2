@@ -44,8 +44,7 @@ class Product
       $this->specialprice = tep_get_products_special_price($data['products_id']);
       $this->qty = $data['products_quantity'];
       $this->products_date_available = $data['products_date_available'];
-      $this->products_tax_class_id = $data['products_tax_class_id'];
- 
+      $this->products_tax_class_id = $data['products_tax_class_id']; 
   }
  
 // returns product data as array 
@@ -101,9 +100,7 @@ class Product
     while ($pi = tep_db_fetch_array($pi_query)) {
       $pi_counter++;
  
-      if (tep_not_null($pi['htmlcontent'])) {
-        $image[$pi_counter]['htmlcontent'] = $pi['htmlcontent'];
-      }
+      if (tep_not_null($pi['htmlcontent'])) $image[$pi_counter]['htmlcontent'] = $pi['htmlcontent'];
  
      $image[$pi_counter]['image'] = tep_image(DIR_WS_IMAGES . $pi['image'], '', '', '', 'id="piGalImg_' . $pi_counter . '"');         
     }
@@ -145,6 +142,5 @@ class Product
   public function getProductcategory()
   {
     return tep_get_product_path($this->data['products_id']);
-  }
-  
+  }  
 }
