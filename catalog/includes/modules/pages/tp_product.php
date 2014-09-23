@@ -61,7 +61,7 @@
 
  
         $pi_counter = 0;
-        $pi_html = array();
+        $image = array();
 
          while ($pi = tep_db_fetch_array($pi_query)) {
           $pi_counter++;
