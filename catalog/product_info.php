@@ -27,34 +27,25 @@
   }
 
   require(DIR_WS_INCLUDES . 'template_top.php');
- 
     
 // exexcute the product count query
     $product->countUpdate(); 
-?>
- 
-<?php 
+
 // print the product page module content 
 // TODO: pass all html content to product page module
     echo $oscTemplate->getContent('product');
 if  (defined('MODULE_CONTENT_ATTRIBUTES_STATUS')) echo $oscTemplate->getContent('attributes');
 ?>
-   
-
- 
     <div class="clearfix"></div>
- 
 <?php
     if ($data['products_date_available'] > date('Y-m-d H:i:s')) {
 ?>
- 
     <div class="alert alert-info"><?php echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($data['products_date_available'])); ?></div>
- 
 <?php
     }
 ?>
  
-  </div>
+   </div>
  
 <?php
     $reviews = $reviews->getReviewscount();
