@@ -31,7 +31,7 @@
      </div>
 <?php     
        } else  {   
-          echo tep_image(DIR_WS_IMAGES . $image, addslashes($name)) . '</div>'; 
+          echo tep_image(DIR_WS_IMAGES . $image, addslashes($oscTemplate->_data[$this->group]['products_name'])) . '</div>'; 
     } 
 ?>  
      
