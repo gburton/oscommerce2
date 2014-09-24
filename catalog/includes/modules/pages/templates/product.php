@@ -22,8 +22,8 @@
 <?php   if (is_array($image))  {  
           foreach ($image as $key => $img)  {
             echo $img['image'] ; 
-             if ( !empty($img['htmlcontent']) ) { ?>
-              <div style="display: none;"><div id="piGalDiv_<?php echo $key ?>'"><?php echo $img['htmlcontent'] ?></div></div>
+             if ( isset($img['htmlcontent']) ) { ?>
+              <div style="display: none;"><div id="piGalDiv_<?php echo $key ?>"><?php echo $img['htmlcontent'] ?></div></div>
 <?php     
             }
           } 
