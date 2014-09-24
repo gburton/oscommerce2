@@ -32,8 +32,8 @@
     $product->countUpdate(); 
 
 // print the product page module content 
-// TODO: pass all html content to product page module
     echo $oscTemplate->getContent('product');
+// load attributes content module
 if  (defined('MODULE_CONTENT_ATTRIBUTES_STATUS')) echo $oscTemplate->getContent('attributes');
 ?>
     <div class="clearfix"></div>
