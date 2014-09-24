@@ -40,7 +40,7 @@
         $selected_attribute = $attributes->getSelectedAttribute();  
       } else {
         return false;
-        }
+      }
         
       ob_start();
       include(DIR_WS_MODULES . 'content/' . $this->group . '/templates/attributes.php');
