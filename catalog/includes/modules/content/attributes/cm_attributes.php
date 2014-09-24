@@ -34,11 +34,13 @@
     function execute() {
       global $oscTemplate, $attributes;
 
-      if (tep_not_null($attributes->getProductsOptionNameArray())) { 
+      if ($attributes->getProductsOptionNameArray()) { 
         $products_options_name_array = $attributes->getProductsOptionNameArray();
         $products_options_array = $attributes->getProductsOptionsArray();
         $selected_attribute = $attributes->getSelectedAttribute();  
-      }
+      } else {
+        return false;
+        }
         
       ob_start();
       include(DIR_WS_MODULES . 'content/' . $this->group . '/templates/attributes.php');

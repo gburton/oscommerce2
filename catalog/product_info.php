@@ -37,7 +37,7 @@
 // print the product page module content 
 // TODO: pass all html content to product page module
     echo $oscTemplate->getContent('product');
-    echo $oscTemplate->getContent('attributes');
+if  (defined('MODULE_CONTENT_ATTRIBUTES_STATUS')) echo $oscTemplate->getContent('attributes');
 ?>
    
 
