@@ -43,7 +43,7 @@
       }
         
       ob_start();
-      include(DIR_WS_MODULES . 'content/' . $this->group . '/templates/attributes.php');
+      include(DIR_WS_MODULES . 'content/' . $this->group . '/templates/cm_attributes.php');
       $template = ob_get_clean();
 
       $oscTemplate->addContent($template, $this->group);

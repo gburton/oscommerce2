@@ -65,7 +65,7 @@
 
 // loads product page template       
       ob_start();
-      include DIR_WS_MODULES . 'pages/templates/' . $this->group . '.php';
+      include DIR_WS_MODULES . 'pages/templates/tp_' . $this->group . '.php';
       $output = ob_get_clean();
     }
       $oscTemplate->addContent($output, $this->group);   
