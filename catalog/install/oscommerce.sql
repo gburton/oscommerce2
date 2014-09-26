@@ -434,14 +434,6 @@ CREATE TABLE products_attributes (
   KEY idx_products_attributes_products_id (products_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-DROP TABLE IF EXISTS products_attributes_types;
-CREATE TABLE products_attributes_types (
-  id int NOT NULL auto_increment,
-  options_id int NOT NULL,
-  type VARCHAR(30),
-  PRIMARY KEY (id)
-  ) CHARACTER SET utf8 COLLATE utf8_unicode_ci
-
 DROP TABLE IF EXISTS products_attributes_download;
 CREATE TABLE products_attributes_download (
   products_attributes_id int NOT NULL,
@@ -489,6 +481,14 @@ CREATE TABLE products_options (
   products_options_name varchar(32) NOT NULL default '',
   PRIMARY KEY  (products_options_id,language_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS products_attributes_types;
+CREATE TABLE products_attributes_types (
+  id int NOT NULL auto_increment,
+  options_id int NOT NULL,
+  type VARCHAR(30),
+  PRIMARY KEY (id)
+  ) CHARACTER SET utf8 COLLATE utf8_unicode_ci
 
 DROP TABLE IF EXISTS products_options_values;
 CREATE TABLE products_options_values (
@@ -1246,6 +1246,12 @@ INSERT INTO products_options VALUES (2,1,'Size');
 INSERT INTO products_options VALUES (3,1,'Model');
 INSERT INTO products_options VALUES (4,1,'Memory');
 INSERT INTO products_options VALUES (5, 1, 'Version');
+
+INSERT INTO products_options_types VALUES (1,1,'Dropdown');
+INSERT INTO products_options_types VALUES (2,1,'Dropdown');
+INSERT INTO products_options_types VALUES (3,1,'Dropdown');
+INSERT INTO products_options_types VALUES (4,1,'Dropdown');
+INSERT INTO products_options_types VALUES (5, 1, 'Dropdown');
 
 INSERT INTO products_options_values VALUES (1,1,'4 mb');
 INSERT INTO products_options_values VALUES (2,1,'8 mb');
