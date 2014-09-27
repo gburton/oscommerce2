@@ -43,12 +43,6 @@ class Attributes extends product
           $this->products_options_array[$products_options['options_id']][] = array('id' => $products_options['products_options_values_id'],
                                                                    'text' => $text,
                                                                     'name' => $products_options['products_options_values_id']);
-     
-        if (is_string($_GET['products_id']) && !empty($_SESSION['cart']->contents[$_GET['products_id']]['attributes'])) {
-            $this->selected_attribute = $_SESSION['cart']->contents[$_GET['products_id']]['attributes'];
-        } else {
-          $this->selected_attribute = false;
-          }
         }
       } else {
       return false;
@@ -67,7 +61,11 @@ class Attributes extends product
 
 // return the actually selected attribute taken from cart $_SESSION
   public function getSelectedAttribute() {
+    if (is_string($_GET['products_id']) && !empty($_SESSION['cart']->contents[$_GET['products_id']]['attributes'])) {
+            $this->selected_attribute = $_SESSION['cart']->contents[$_GET['products_id']]['attributes'];
+    } else {
+      $this->selected_attribute = false;
+    }
    return $this->selected_attribute;
-  }    
- 
+  }     
 }
