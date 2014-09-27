@@ -13,16 +13,7 @@
 class Product
 {
   protected $data;
-  protected $model;
-  protected $name;
-  protected $id;
-  protected $description;
-  protected $price;
-  protected $image;
-  protected $url;
-  protected $qty;
-  protected $products_date_available;
-  protected $products_tax_class_id;
+  protected $htmlcontent;
  
   public function __construct($products_id = '') {
     
@@ -31,16 +22,6 @@ class Product
     $product_info_query = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$products_id . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
     
       $this->data = tep_db_fetch_array($product_info_query);    
-      $this->model = $this->data['products_model'];
-      $this->name = $this->data['products_name'];
-      $this->id = $this->data['products_id'];
-      $this->description = $this->data['products_description'];
-      $this->image = $this->data['products_image'];
-      $this->url = $this->data['products_url'];
-      $this->price = $this->data['products_price'];
-      $this->qty = $this->data['products_quantity'];
-      $this->products_date_available = $this->data['products_date_available'];
-      $this->products_tax_class_id = $this->data['products_tax_class_id']; 
   }
  
 // returns product data as array 
@@ -52,31 +33,31 @@ class Product
 // returns product model 
   public function getModel()
   {
-    return $this->model;
+    return $this->data['products_model']
   }
  
 // returns product name 
   public function getName()
   {
-    return $this->name;
+    return $this->data['products_name'];
   }
 
 // returns product ID 
   public function getId()
   {
-    return $this->id;
+    return $this->data['products_id'];
   }
 
 // returns product description 
   public function getDescription()
   {
-    return $this->description;
+    return $this->data['products_description'];
   }
 
 // returns product main image 
   public function getImage()
   {
-    return $this->image;
+    return $this->data['products_image'];
   }
  
 // updates product count
@@ -101,13 +82,14 @@ class Product
      $image[$pi_counter]['image'] = tep_image(DIR_WS_IMAGES . $pi['image'], '', '', '', 'id="piGalImg_' . $pi_counter . '"');         
     }
     
-    return $image;
+    $this->htmlcontent = $image;
+    return $this->htmlcontent;
   }
 
 // returns product price   
   public function getPrice()
   {
-    return $this->price;
+    return $this->data['products_price'];
   }
 
  // returns product special price
@@ -119,19 +101,19 @@ class Product
 // returns product quantity  
   public function getQty()
   {
-    return $this->qty;
+    return $this->data['products_quantity'];
   }
 
 // returns product data available  
   public function getDate_Available()
   {
-    return $this->products_date_available;
+    return $this->data['products_date_available'];
   }
 
 // returns product tax class id 
   public function getProducts_tax_class_id()
   {
-    return $this->products_tax_class_id;
+    return $this->data['products_tax_class_id'];
   }
   
 // return category id
