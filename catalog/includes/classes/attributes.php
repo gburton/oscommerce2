@@ -62,10 +62,10 @@ class Attributes extends product
 // return the actually selected attribute taken from cart $_SESSION
   public function getSelectedAttribute() {
     if (is_string($_GET['products_id']) && !empty($_SESSION['cart']->contents[$_GET['products_id']]['attributes'])) {
-            $this->selected_attribute = $_SESSION['cart']->contents[$_GET['products_id']]['attributes'];
+      $this->selected_attribute = $_SESSION['cart']->contents[$_GET['products_id']]['attributes'];
+      return $this->selected_attribute;
     } else {
-      $this->selected_attribute = false;
-    }
-   return $this->selected_attribute;
+      return false;
+    }   
   }     
 }
