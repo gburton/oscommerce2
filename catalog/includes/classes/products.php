@@ -30,19 +30,17 @@ class Product
     
     $product_info_query = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$products_id . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
     
-    $data =  tep_db_fetch_array($product_info_query);    
-       
-      $this->data = $data;
-      $this->model = $data['products_model'];
-      $this->name = $data['products_name'];
-      $this->id = $data['products_id'];
-      $this->description = $data['products_description'];
-      $this->image = $data['products_image'];
-      $this->url = $data['products_url'];
-      $this->price = $data['products_price'];
-      $this->qty = $data['products_quantity'];
-      $this->products_date_available = $data['products_date_available'];
-      $this->products_tax_class_id = $data['products_tax_class_id']; 
+      $this->data = tep_db_fetch_array($product_info_query);    
+      $this->model = $this->data['products_model'];
+      $this->name = $this->data['products_name'];
+      $this->id = $this->data['products_id'];
+      $this->description = $this->data['products_description'];
+      $this->image = $this->data['products_image'];
+      $this->url = $this->data['products_url'];
+      $this->price = $this->data['products_price'];
+      $this->qty = $this->data['products_quantity'];
+      $this->products_date_available = $this->data['products_date_available'];
+      $this->products_tax_class_id = $this->data['products_tax_class_id']; 
   }
  
 // returns product data as array 
