@@ -41,8 +41,8 @@ class Attributes extends product
          }
  
           $this->products_options_array[$products_options['options_id']][] = array('id' => $products_options['products_options_values_id'],
-                                                                   'text' => $text,
-                                                                    'name' => $products_options['products_options_values_id']);
+                                                                                   'text' => $text,
+                                                                                   'name' => $products_options['products_options_values_id']);
         }
       } else {
       return false;
