@@ -33,7 +33,7 @@ class Product
 // returns product model 
   public function getModel()
   {
-    return $this->data['products_model']
+    return $this->data['products_model'];
   }
  
 // returns product name 
@@ -63,13 +63,13 @@ class Product
 // updates product count
   public function countUpdate()
   {
-    return tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . (int)$this->id . "' and language_id = '" . (int)$_SESSION['languages_id'] . "'");   
+    return tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . (int)$this->data['products_id'] . "' and language_id = '" . (int)$_SESSION['languages_id'] . "'");   
   }
 
 // returns product multiple images and htmlcontent  
   public function getHtmlcontent()
   {
-    $pi_query = tep_db_query("select image, htmlcontent from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . (int)$this->id . "' order by sort_order");
+    $pi_query = tep_db_query("select image, htmlcontent from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . (int)$this->data['products_id'] . "' order by sort_order");
     
     $pi_counter = 0;
     $image = array();
