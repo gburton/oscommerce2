@@ -22,7 +22,7 @@
     function build() {
       global $oscTemplate, $currencies,  $product;
       
-      if (is_null($oscTemplate->_data[$this->group]['products_id'])) {
+      if ($oscTemplate->_data[$this->group]['products_id'] == false) {
           header('HTTP/1.0 404 Not Found');  
   
           $output = '<div class="contentContainer">' .
