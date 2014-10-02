@@ -1251,7 +1251,7 @@ INSERT INTO products_options_types VALUES (1,1,'Dropdown');
 INSERT INTO products_options_types VALUES (2,1,'Dropdown');
 INSERT INTO products_options_types VALUES (3,1,'Dropdown');
 INSERT INTO products_options_types VALUES (4,1,'Dropdown');
-INSERT INTO products_options_types VALUES (5,1,'Dropdown');
+INSERT INTO products_options_types VALUES (5, 1, 'Dropdown');
 
 INSERT INTO products_options_values VALUES (1,1,'4 mb');
 INSERT INTO products_options_values VALUES (2,1,'8 mb');
