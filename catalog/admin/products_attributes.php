@@ -26,13 +26,11 @@
       case 'add_product_options':
         $products_options_id = tep_db_prepare_input($HTTP_POST_VARS['products_options_id']);
         $option_name_array = $HTTP_POST_VARS['option_name'];
-        $type = $HTTP_POST_VARS['types'];
 
         for ($i=0, $n=sizeof($languages); $i<$n; $i ++) {
           $option_name = tep_db_prepare_input($option_name_array[$languages[$i]['id']]);
 
           tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, products_options_name, language_id) values ('" . (int)$products_options_id . "', '" . tep_db_input($option_name) . "', '" . (int)$languages[$i]['id'] . "')");
-          tep_db_query("insert into products_option_types (id, options_id, type) values ('', '" . $products_options_id . "', '" . $type . "')");
         }
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
@@ -77,13 +75,11 @@
       case 'update_option_name':
         $option_name_array = $HTTP_POST_VARS['option_name'];
         $option_id = tep_db_prepare_input($HTTP_POST_VARS['option_id']);
-        $type = $HTTP_POST_VARS['types'];
 
         for ($i=0, $n=sizeof($languages); $i<$n; $i ++) {
           $option_name = tep_db_prepare_input($option_name_array[$languages[$i]['id']]);
 
           tep_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . tep_db_input($option_name) . "' where products_options_id = '" . (int)$option_id . "' and language_id = '" . (int)$languages[$i]['id'] . "'");
-          tep_db_query("update products_option_types set options_id = '" . (int)$option_id . "', type = '". $type ."' where options_id = '" . (int)$option_id . "'");
         }
 
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
@@ -127,10 +123,8 @@
         break;
       case 'delete_option':
         $option_id = tep_db_prepare_input($HTTP_GET_VARS['option_id']);
-        $type = $HTTP_POST_VARS['types'];
-      
+
         tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . (int)$option_id . "'");
-        tep_db_query("delete from products_option_types where options_id = '" . (int)$option_id . "'");
 
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
@@ -194,7 +188,6 @@
       $rows = 0;
       while ($products_values = tep_db_fetch_array($products)) {
         $rows++;
-        
 ?>
                   <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
                     <td align="center" class="smallText">&nbsp;<?php echo $products_values['products_id']; ?>&nbsp;</td>
@@ -238,61 +231,31 @@
 <?php
     $options = "select * from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . (int)$languages_id . "' order by products_options_id";
     $options_split = new splitPageResults($option_page, MAX_ROW_LISTS_OPTIONS, $options, $options_query_numrows);
-          
-    $type_query = tep_db_query("SELECT po.products_options_id, type , pt.options_id FROM ". TABLE_PRODUCTS_OPTIONS . " po, products_option_types pt WHERE po.products_options_id = pt.options_id");        
 
-   while ( $types = tep_db_fetch_array($type_query) ) { 
-       $arri[$types['options_id']] = $types;
-    }
-      
-       
     echo $options_split->display_links($options_query_numrows, MAX_ROW_LISTS_OPTIONS, MAX_DISPLAY_PAGE_LINKS, $option_page, 'value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'option_page');
 ?>
                 </td>
               </tr>
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr class="dataTableHeadingRow">
                 <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
                 <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_TYPE; ?>&nbsp;</td>
                 <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
     $next_id = 1;
     $rows = 0;
-      
-         
     $options = tep_db_query($options);
-  
     while ($options_values = tep_db_fetch_array($options)) {
       $rows++;
-      
-        $options_values['type'] = $arri[$options_values['products_options_id']]['type'];
-      if (!tep_not_null($arri[$options_values['products_options_id']]['type']) ) {
-        $options_values['type'] = 'Dropdown';
-      } else {
-         $options_values['type'] = $arri[$options_values['products_options_id']]['type'];
-      }
-       
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
-       $types = '';
-        $type_array = array('Dropdown','checkbox','Radiobox');
-
-        foreach ($type_array as $value) {
-          if  ($options_values['type'] == $value) {
-            $types .= '<option value="'.$value.'" selected>'.$value.'</option>';
-            } else { 
-            $types .= '<option value="'.$value.'">'.$value.'</option>'; 
-          }         
-        }  
-      
       if (($action == 'update_option') && ($HTTP_GET_VARS['option_id'] == $options_values['products_options_id'])) {
         echo '<form name="option" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_name&' . $page_info) . '" method="post">';
         $inputs = '';
@@ -301,12 +264,9 @@
           $option_name = tep_db_fetch_array($option_name);
           $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br />';
         }
-        
-       
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_values['products_options_id']; ?><input type="hidden" name="option_id" value="<?php echo $options_values['products_options_id']; ?>">&nbsp;</td>
                 <td class="smallText"><?php echo $inputs; ?></td>
-                <td class="smallText"><select name="types"><?php echo $types; ?></select></td>
                 <td align="center" class="smallText">&nbsp;<?php echo tep_draw_button(IMAGE_SAVE, 'disk', null, 'primary') . tep_draw_button(IMAGE_CANCEL, 'close', tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info)); ?>&nbsp;</td>
 <?php
         echo '</form>' . "\n";
@@ -314,11 +274,9 @@
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_values["products_options_id"]; ?>&nbsp;</td>
                 <td class="smallText">&nbsp;<?php echo $options_values["products_options_name"]; ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<?php echo $options_values["type"]; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<?php echo tep_draw_button(IMAGE_EDIT, 'document', tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option&option_id=' . $options_values['products_options_id'] . '&' . $page_info)) . tep_draw_button(IMAGE_DELETE, 'trash', tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_product_option&option_id=' . $options_values['products_options_id'] . '&' . $page_info)); ?>&nbsp;</td>
 <?php
       }
-
 ?>
               </tr>
 <?php
@@ -328,7 +286,7 @@
     }
 ?>
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
     if ($action != 'update_option') {
@@ -343,14 +301,13 @@
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
                 <td class="smallText"><?php echo $inputs; ?></td>
-                <td class="smallText"><select name="types"><?php echo $types; ?></select></td>
                 <td align="center" class="smallText">&nbsp;<?php echo tep_draw_button(IMAGE_INSERT, 'plus'); ?>&nbsp;</td>
 <?php
       echo '</form>';
 ?>
               </tr>
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
     }

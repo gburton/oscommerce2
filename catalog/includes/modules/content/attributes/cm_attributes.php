@@ -61,7 +61,7 @@
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable Attributes Module', 'MODULE_CONTENT_ATTRIBUTES_STATUS', 'True', 'Do you want to enable the attribtes module?', '6', '1', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order', 'MODULE_CONTENT_ATTRIBUTES_SORT_ORDER', '1000', 'Sort order of display. Lowest is displayed first.', '6', '0', now())");
 // updates old version database when installing module. Will not be removed on module uninstall. 
-      tep_db_query("CREATE TABLE IF NOT EXISTS products_options_types (id int NOT NULL auto_increment, options_id int NOT NULL, type VARCHAR(30), PRIMARY KEY (id)) CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+      tep_db_query("CREATE TABLE IF NOT EXISTS products_attributes_types (id int NOT NULL auto_increment, options_id int NOT NULL, type VARCHAR(30), PRIMARY KEY (id)) CHARACTER SET utf8 COLLATE utf8_unicode_ci");
     }
 
     function remove() {
