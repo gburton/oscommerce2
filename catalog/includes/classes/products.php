@@ -18,7 +18,7 @@ class Product
   public function __construct($products_id = '') {
 
 // check first that products_id is not null, then that is a positive integer and without letters
-    if ( (!$products_id) && ($products_id <= 0) || (preg_match('/[A-Za-z]+/', $products_id) ) {
+    if ( (!$products_id) || ($products_id <= 0) || (preg_match('/[A-Za-z]+/', $products_id) ) {
       return false; 
     } else {
       $products_id = (int)$products_id;
