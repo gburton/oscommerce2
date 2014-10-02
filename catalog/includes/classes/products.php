@@ -16,8 +16,13 @@ class Product
   protected $htmlcontent;
  
   public function __construct($products_id = '') {
-    
-    if ( (!$products_id) || (!is_int($products_id)) ) return false; 
+
+// check first that products_id is not null, then that is a positive integer and without letters
+    if ( (!$products_id) || ($products_id <= 0) || (preg_match('/[A-Za-z]+/', $products_id) ) {
+      return false; 
+    } else {
+      $products_id = (int)$products_id;
+    }
     
     $product_info_query = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $products_id . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
     

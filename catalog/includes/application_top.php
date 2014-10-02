@@ -420,9 +420,9 @@
   
   $products_id = '';
 
-  if ( isset($_GET['products_id']) ) {   
+  if ( isset($_GET['products_id']) && !preg_match('/[^0-9{}]/', $_GET['products_id'])) {
     $products_id = (int)$_GET['products_id'];
-  }   
+  }
 
   $product = new product($products_id);
   $attributes = new attributes($products_id);
