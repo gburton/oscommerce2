@@ -193,7 +193,7 @@
 <?php
       $rows = 0;
       while ($products_values = tep_db_fetch_array($products)) {
-        $rows++;
+        $rows++;        
 ?>
                   <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
                     <td align="center" class="smallText">&nbsp;<?php echo $products_values['products_id']; ?>&nbsp;</td>
@@ -242,7 +242,8 @@
 
    while ( $types = tep_db_fetch_array($type_query) ) { 
        $arri[$types['options_id']] = $types;
-    } 
+    }
+           
     echo $options_split->display_links($options_query_numrows, MAX_ROW_LISTS_OPTIONS, MAX_DISPLAY_PAGE_LINKS, $option_page, 'value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'option_page');
 ?>
                 </td>
@@ -261,19 +262,16 @@
               </tr>
 <?php
     $next_id = 1;
-    $rows = 0;
-      
+    $rows = 0;        
     $options = tep_db_query($options);
   
     while ($options_values = tep_db_fetch_array($options)) {
-      $rows++;
-      
-        $options_values['type'] = $arri[$options_values['products_options_id']]['type'];
+      $rows++;      
+      $options_values['type'] = $arri[$options_values['products_options_id']]['type'];
       if (!tep_not_null($arri[$options_values['products_options_id']]['type']) ) {
         $options_values['type'] = 'Dropdown';
-      } else {
-         $options_values['type'] = $arri[$options_values['products_options_id']]['type'];
       }
+    }
        
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
@@ -296,7 +294,7 @@
           $option_name = tep_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $options_values['products_options_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
           $option_name = tep_db_fetch_array($option_name);
           $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br />';
-        }    
+        }       
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_values['products_options_id']; ?><input type="hidden" name="option_id" value="<?php echo $options_values['products_options_id']; ?>">&nbsp;</td>
                 <td class="smallText"><?php echo $inputs; ?></td>
@@ -312,7 +310,6 @@
                 <td align="center" class="smallText">&nbsp;<?php echo tep_draw_button(IMAGE_EDIT, 'document', tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option&option_id=' . $options_values['products_options_id'] . '&' . $page_info)) . tep_draw_button(IMAGE_DELETE, 'trash', tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_product_option&option_id=' . $options_values['products_options_id'] . '&' . $page_info)); ?>&nbsp;</td>
 <?php
       }
-
 ?>
               </tr>
 <?php
