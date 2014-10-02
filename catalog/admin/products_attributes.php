@@ -244,7 +244,8 @@
    while ( $types = tep_db_fetch_array($type_query) ) { 
        $arri[$types['options_id']] = $types;
     }
-           
+      
+       
     echo $options_split->display_links($options_query_numrows, MAX_ROW_LISTS_OPTIONS, MAX_DISPLAY_PAGE_LINKS, $option_page, 'value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'option_page');
 ?>
                 </td>
@@ -265,7 +266,7 @@
     $next_id = 1;
     $rows = 0;
       
-        
+         
     $options = tep_db_query($options);
   
     while ($options_values = tep_db_fetch_array($options)) {
@@ -274,8 +275,9 @@
         $options_values['type'] = $arri[$options_values['products_options_id']]['type'];
       if (!tep_not_null($arri[$options_values['products_options_id']]['type']) ) {
         $options_values['type'] = 'Dropdown';
+      } else {
+         $options_values['type'] = $arri[$options_values['products_options_id']]['type'];
       }
-    }
        
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
