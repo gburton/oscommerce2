@@ -482,13 +482,13 @@ CREATE TABLE products_options (
   PRIMARY KEY  (products_options_id,language_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-DROP TABLE IF EXISTS products_options_types;
-CREATE TABLE products_options_types (
+DROP TABLE IF EXISTS products_attributes_types;
+CREATE TABLE products_attributes_types (
   id int NOT NULL auto_increment,
   options_id int NOT NULL,
   type VARCHAR(30),
   PRIMARY KEY (id)
-  ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+  ) CHARACTER SET utf8 COLLATE utf8_unicode_ci
 
 DROP TABLE IF EXISTS products_options_values;
 CREATE TABLE products_options_values (
