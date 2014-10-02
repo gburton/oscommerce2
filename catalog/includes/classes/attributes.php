@@ -33,12 +33,6 @@ class Attributes extends product
    
     $products_options_query = tep_db_query("select pa.options_id, pov.products_options_values_id, pov.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id = '" . (int)$products_id . "' and pa.options_id in (" .  implode(',', $this->products_options_name_arr) . ") and pa.options_values_id = pov.products_options_values_id and pov.language_id = '" . (int)$_SESSION['languages_id'] . "'");
  
-    $type_query = tep_db_query("SELECT po.products_options_id, type , pt.options_id FROM ". TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_OPTIONS_TYPES . " pt WHERE po.products_options_id = pt.options_id");
-      
-    while ( $types = tep_db_fetch_array($type_query) ) { 
-       $arri[$types['options_id']] = $types;
-     }   
-      
       while ($products_options = tep_db_fetch_array($products_options_query)) {
         $text =  $products_options['products_options_values_name'];
          
@@ -46,14 +40,9 @@ class Attributes extends product
           $text .= ' ' . $products_options['price_prefix'] . $currencies->display_price($products_options['options_values_price'], tep_get_tax_rate($this->getProducts_tax_class_id()));
          }
  
-          if ( isset($arri[$products_options['products_options_values_id']])) {
-            $type = $arri[$products_options['products_options_values_id']]['type'];
-          }
-        
           $this->products_options_array[$products_options['options_id']][] = array('id' => $products_options['products_options_values_id'],
                                                                                    'text' => $text,
-                                                                                   'name' => $products_options['products_options_values_id'],
-                                                                                   'type' => $type);
+                                                                                   'name' => $products_options['products_options_values_id']);
         }
       } else {
       return false;
@@ -78,5 +67,5 @@ class Attributes extends product
     } else {
     return false;
     }   
-  }
+  }     
 }
