@@ -17,7 +17,6 @@ define('HEADING_TITLE_ATRIB', 'Products Attributes');
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_PRODUCT', 'Product Name');
 define('TABLE_HEADING_OPT_NAME', 'Option Name');
-define('TABLE_HEADING_OPT_TYPE', 'Type');
 define('TABLE_HEADING_OPT_VALUE', 'Option Value');
 define('TABLE_HEADING_OPT_PRICE', 'Value Price');
 define('TABLE_HEADING_OPT_PRICE_PREFIX', 'Prefix');

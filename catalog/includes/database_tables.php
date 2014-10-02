@@ -46,7 +46,6 @@
   define('TABLE_PRODUCTS_IMAGES', 'products_images');
   define('TABLE_PRODUCTS_NOTIFICATIONS', 'products_notifications');
   define('TABLE_PRODUCTS_OPTIONS', 'products_options');
-  define('TABLE_PRODUCTS_OPTIONS_TYPES', 'products_options_types');
   define('TABLE_PRODUCTS_OPTIONS_VALUES', 'products_options_values');
   define('TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS', 'products_options_values_to_products_options');
   define('TABLE_PRODUCTS_TO_CATEGORIES', 'products_to_categories');

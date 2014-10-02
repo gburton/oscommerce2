@@ -32,7 +32,7 @@
           $option_name = tep_db_prepare_input($option_name_array[$languages[$i]['id']]);
 
           tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, products_options_name, language_id) values ('" . (int)$products_options_id . "', '" . tep_db_input($option_name) . "', '" . (int)$languages[$i]['id'] . "')");
-          tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_TYPES . " (id, options_id, type) values ('', '" . $products_options_id . "', '" . $type . "')");
+          tep_db_query("insert into products_option_types (id, options_id, type) values ('', '" . $products_options_id . "', '" . $type . "')");
         }
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
@@ -83,7 +83,7 @@
           $option_name = tep_db_prepare_input($option_name_array[$languages[$i]['id']]);
 
           tep_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . tep_db_input($option_name) . "' where products_options_id = '" . (int)$option_id . "' and language_id = '" . (int)$languages[$i]['id'] . "'");
-          tep_db_query("update " . TABLE_PRODUCTS_OPTIONS_TYPES . " set options_id = '" . (int)$option_id . "', type = '". $type ."' where options_id = '" . (int)$option_id . "'");
+          tep_db_query("update products_option_types set options_id = '" . (int)$option_id . "', type = '". $type ."' where options_id = '" . (int)$option_id . "'");
         }
 
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
@@ -130,7 +130,7 @@
         $type = $HTTP_POST_VARS['types'];
       
         tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . (int)$option_id . "'");
-        tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_TYPES . " where options_id = '" . (int)$option_id . "'");
+        tep_db_query("delete from products_option_types where options_id = '" . (int)$option_id . "'");
 
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
@@ -239,7 +239,7 @@
     $options = "select * from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . (int)$languages_id . "' order by products_options_id";
     $options_split = new splitPageResults($option_page, MAX_ROW_LISTS_OPTIONS, $options, $options_query_numrows);
           
-    $type_query = tep_db_query("SELECT po.products_options_id, type , pt.options_id FROM ". TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_OPTIONS_TYPES . " pt WHERE po.products_options_id = pt.options_id");        
+    $type_query = tep_db_query("SELECT po.products_options_id, type , pt.options_id FROM ". TABLE_PRODUCTS_OPTIONS . " po, products_option_types pt WHERE po.products_options_id = pt.options_id");        
 
    while ( $types = tep_db_fetch_array($type_query) ) { 
        $arri[$types['options_id']] = $types;
