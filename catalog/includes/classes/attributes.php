@@ -28,8 +28,6 @@ class Attributes extends product
       while($products_options_name_array = tep_db_fetch_array($products_attributes_query)) {
         $this->products_options_name_arr[(int)$products_options_name_array['products_options_id']] = $products_options_name_array['products_options_name'];
      }
-     
-    $products_options_array = array();
    
     $products_options_query = tep_db_query("select pa.options_id, pov.products_options_values_id, pov.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id = '" . $products_id . "' and pa.options_id in (" .  implode(',', array_keys($this->products_options_name_arr)) . ") and pa.options_values_id = pov.products_options_values_id and pov.language_id = '" . (int)$_SESSION['languages_id'] . "'");
  
