@@ -11,8 +11,8 @@
 */
 
 class reviews
+ 
 {
-
   protected $id;
   
   public function __construct($products_id) 
@@ -52,7 +52,10 @@ class reviews
   public function getReviewscount()
   {
     $reviews_query = tep_db_query("select count(*) as count from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.products_id = '" . $this->id . "' and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$_SESSION['languages_id'] . "' and reviews_status = 1");
-    return tep_db_fetch_array($reviews_query); 
+    
+    $reviews = tep_db_fetch_array($reviews_query);
+    
+    return  $reviews['count'];
   }
     
 }
