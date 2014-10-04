@@ -11,9 +11,10 @@
 */
 
 class reviews
- 
 {
 
+  protected $id;
+  
   public function __construct($products_id) 
   {
    $this->id = $products_id;
