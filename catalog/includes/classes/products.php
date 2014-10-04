@@ -35,6 +35,17 @@ class Product
   {
     return $this->data[$obj];
   }
+  
+// add the products model to the breadcrumb trail
+  public function productBreadcrumb() 
+  {
+    global $breadcrumb;
+    
+    if ($this->get('products_model')) {
+
+      $breadcrumb->add($this->get('products_model'), tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $this->getProductcategory() . '&products_id=' . $this->get('products_id')));
+    }  
+  }
  
 // updates product count
   public function countUpdate()

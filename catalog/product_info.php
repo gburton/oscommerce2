@@ -14,10 +14,8 @@
  
   require(DIR_WS_LANGUAGES . $_SESSION['language'] . '/' . FILENAME_PRODUCT_INFO);
 
-  if ($product->get('products_model')) {
-// add the products model to the breadcrumb trail
-    $breadcrumb->add($product->get('products_model'), tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $product->get('products_id')));
-  }
+// add the product model to the breadcrumb trail
+  $product->productBreadcrumb(); 
 
   require(DIR_WS_INCLUDES . 'template_top.php');
     
