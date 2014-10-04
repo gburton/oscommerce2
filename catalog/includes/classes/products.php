@@ -30,7 +30,7 @@ class Product
     return $this->data; 
   }
 
-  // returns product model 
+// returns a single element of the data array 
   public function get($obj)
   {
     return $this->data[$obj];
