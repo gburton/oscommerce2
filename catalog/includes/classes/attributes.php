@@ -37,7 +37,7 @@ class Attributes extends product
         $text =  $products_options['products_options_values_name'];
          
         if ($products_options['options_values_price'] != '0') {
-          $text .= ' ' . $products_options['price_prefix'] . $currencies->display_price($products_options['options_values_price'], tep_get_tax_rate($this->getProducts_tax_class_id()));
+          $text .= ' ' . $products_options['price_prefix'] . $currencies->display_price($products_options['options_values_price'], tep_get_tax_rate($this->get('products_tax_class_id')));
          }
  
           $this->products_options_array[$products_options['options_id']][] = array('id' => $products_options['products_options_values_id'],

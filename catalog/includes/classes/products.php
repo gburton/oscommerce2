@@ -29,47 +29,23 @@ class Product
   {
     return $this->data; 
   }
- 
-// returns product model 
-  public function getModel()
-  {
-    return $this->data['products_model'];
-  }
- 
-// returns product name 
-  public function getName()
-  {
-    return $this->data['products_name'];
-  }
 
-// returns product ID 
-  public function getId()
+  // returns product model 
+  public function get($obj)
   {
-    return $this->data['products_id'];
-  }
-
-// returns product description 
-  public function getDescription()
-  {
-    return $this->data['products_description'];
-  }
-
-// returns product main image 
-  public function getImage()
-  {
-    return $this->data['products_image'];
+    return $this->data[$obj];
   }
  
 // updates product count
   public function countUpdate()
   {
-    return tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . $this->data['products_id'] . "' and language_id = '" . (int)$_SESSION['languages_id'] . "'");   
+    return tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . $this->get('products_id') . "' and language_id = '" . (int)$_SESSION['languages_id'] . "'");   
   }
 
 // returns product multiple images and htmlcontent  
   public function getHtmlcontent()
   {
-    $pi_query = tep_db_query("select image, htmlcontent from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . $this->data['products_id'] . "' order by sort_order");
+    $pi_query = tep_db_query("select image, htmlcontent from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . $this->get('products_id') . "' order by sort_order");
     
     $pi_counter = 0;
     $image = array();
@@ -86,39 +62,15 @@ class Product
     return $this->htmlcontent;
   }
 
-// returns product price   
-  public function getPrice()
-  {
-    return $this->data['products_price'];
-  }
-
  // returns product special price
   public function getSpecialprice()
   {
-    return tep_get_products_special_price($this->data['products_id']);
-  }
-
-// returns product quantity  
-  public function getQty()
-  {
-    return $this->data['products_quantity'];
-  }
-
-// returns product data available  
-  public function getDate_Available()
-  {
-    return $this->data['products_date_available'];
-  }
-
-// returns product tax class id 
-  public function getProducts_tax_class_id()
-  {
-    return $this->data['products_tax_class_id'];
+    return tep_get_products_special_price($this->get('products_id'));
   }
   
 // return category id
   public function getProductcategory()
   {
-    return tep_get_product_path($this->data['products_id']);
+    return tep_get_product_path($this->get('products_id'));
   }  
 }
