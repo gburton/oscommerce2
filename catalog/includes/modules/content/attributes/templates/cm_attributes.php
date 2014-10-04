@@ -5,9 +5,9 @@
   <div class="col-sm-6">
 <?php  foreach ( $products_options_name_array as $key => $value )  {   ?>
     <div class="form-group">
-      <label class="control-label col-xs-3"><?php echo $key . ':'; ?></label>
+      <label class="control-label col-xs-3"><?php echo $value . ':'; ?></label>
         <div class="col-xs-9">
-          <?php echo tep_draw_pull_down_menu('id[' . $value . ']', $products_options_array[$value], $selected_attribute[$value]); ?>
+          <?php echo tep_draw_pull_down_menu('id[' . $key . ']', $products_options_array[$key], $selected_attribute[$key]); ?>
         </div>
     </div>
 <?php  } ?>
