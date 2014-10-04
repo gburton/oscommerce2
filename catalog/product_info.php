@@ -13,12 +13,10 @@
   require('includes/application_top.php');
  
   require(DIR_WS_LANGUAGES . $_SESSION['language'] . '/' . FILENAME_PRODUCT_INFO);
-  
-  $data = $product->getData();
 
-  if (isset($data['products_model'])) {
+  if ($product->get('products_model')) {
 // add the products model to the breadcrumb trail
-    $breadcrumb->add($data['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $data['products_id']));
+    $breadcrumb->add($product->get('products_model'), tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $product->get('products_id')));
   }
 
   require(DIR_WS_INCLUDES . 'template_top.php');
@@ -33,11 +31,12 @@ if  (defined('MODULE_CONTENT_ATTRIBUTES_STATUS')) echo $oscTemplate->getContent(
 ?>
     <div class="clearfix"></div>
 <?php
-    if ($data['products_date_available'] > date('Y-m-d H:i:s')) {
+    if ($product->get('products_date_available') > date('Y-m-d H:i:s')) {
 ?>
-    <div class="alert alert-info"><?php echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($data['products_date_available'])); ?></div>
+    <div class="alert alert-info"><?php echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($product->get('products_date_available'))); ?></div>
 <?php
     }
+
 ?>
  
    </div>
@@ -47,7 +46,7 @@ if  (defined('MODULE_CONTENT_ATTRIBUTES_STATUS')) echo $oscTemplate->getContent(
 ?>
  
   <div class="row">
-    <div class="col-sm-6 text-right pull-right"><?php echo tep_draw_hidden_field('products_id', $data['products_id']) . tep_draw_button(IMAGE_BUTTON_IN_CART, 'glyphicon glyphicon-shopping-cart', null, 'primary', null, 'btn-success'); ?></div>
+    <div class="col-sm-6 text-right pull-right"><?php echo tep_draw_hidden_field('products_id', $product->get('products_id')) . tep_draw_button(IMAGE_BUTTON_IN_CART, 'glyphicon glyphicon-shopping-cart', null, 'primary', null, 'btn-success'); ?></div>
     <div class="col-sm-6"><?php echo tep_draw_button(IMAGE_BUTTON_REVIEWS . (($reviews['count'] > 0) ? ' (' . $reviews['count'] . ')' : ''), 'glyphicon glyphicon-comment', tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params())); ?></div>
   </div>
  
