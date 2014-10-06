@@ -1,4 +1,4 @@
-composer self-update
+composer selfupdate
 language: php
 php:
   - 5.5
