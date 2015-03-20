@@ -422,6 +422,22 @@
 
   $breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
   $breadcrumb->add(HEADER_TITLE_CATALOG, tep_href_link(FILENAME_DEFAULT));
+  
+// load product classes
+  require('includes/classes/products.php');
+  require('includes/classes/attributes.php');
+  require('includes/classes/reviews.php');
+
+// checks that superglobal 'products_id' variable is set and that is in a valid format  
+  $products_id = '';
+
+  if ( isset($_GET['products_id']) && !preg_match('/[^0-9{}]/', $_GET['products_id'])) {
+    $products_id = (int)$_GET['products_id'];
+  }
+
+  $product = new product($products_id);
+  $attributes = new attributes($products_id);
+  $reviews = new reviews($products_id);
 
 // add category names or the manufacturer name to the breadcrumb trail
   if ( isset($cPath_array) ) {
