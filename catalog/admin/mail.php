@@ -51,14 +51,17 @@
         break;
     }
 
-    $from = HTML::sanitize($_POST['from']);
-    $subject = HTML::sanitize($_POST['subject']);
-    $message = HTML::sanitize($_POST['message']);
-
     $customerEmail = new Mail();
-    $customerEmail->setFrom($from);
-    $customerEmail->setSubject($subject);
-    $customerEmail->setBody($message);
+    $customerEmail->setFrom($_POST['from']);
+    $customerEmail->setSubject($_POST['subject']);
+
+    if (!empty($_POST['message'])) {
+      $customerEmail->setBodyPlain($_POST['message']);
+    }
+
+    if (!empty($_POST['message_html'])) {
+      $customerEmail->setBodyHTML($_POST['message_html']);
+    }
 
     while ($Qmail->fetch()) {
       $customerEmail->clearTo();
@@ -109,25 +112,51 @@
           <tr><?php echo HTML::form('mail', OSCOM::link(FILENAME_MAIL, 'action=send_email_to_user')); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
-                <td class="smallText"><strong><?php echo OSCOM::getDef('text_customer'); ?></strong><br /><?php echo $mail_sent_to; ?></td>
+                <td class="smallText"><strong><?php echo OSCOM::getDef('text_customer'); ?></strong><br /><?php echo HTML::outputProtected($mail_sent_to); ?></td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
               </tr>
               <tr>
-                <td class="smallText"><strong><?php echo OSCOM::getDef('text_from'); ?></strong><br /><?php echo htmlspecialchars(stripslashes($_POST['from'])); ?></td>
+                <td class="smallText"><strong><?php echo OSCOM::getDef('text_from'); ?></strong><br /><?php echo HTML::outputProtected($_POST['from']); ?></td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
               </tr>
               <tr>
-                <td class="smallText"><strong><?php echo OSCOM::getDef('text_subject'); ?></strong><br /><?php echo htmlspecialchars(stripslashes($_POST['subject'])); ?></td>
+                <td class="smallText"><strong><?php echo OSCOM::getDef('text_subject'); ?></strong><br /><?php echo HTML::outputProtected($_POST['subject']); ?></td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
               </tr>
               <tr>
-                <td class="smallText"><strong><?php echo OSCOM::getDef('text_message'); ?></strong><br /><?php echo nl2br(htmlspecialchars(stripslashes($_POST['message']))); ?></td>
+                <td class="smallText">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#html_preview" aria-controls="html_preview" role="tab" data-toggle="tab"><?= OSCOM::getDef('email_type_html'); ?></a></li>
+                    <li role="presentation"><a href="#plain_preview" aria-controls="plain_preview" role="tab" data-toggle="tab"><?= OSCOM::getDef('email_type_plain'); ?></a></li>
+                  </ul>
+
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="html_preview">
+                      <iframe id="emailHtmlPreviewContent" style="width: 100%; height: 400px; border: 0;"></iframe>
+
+                      <script id="emailHtmlPreview" type="x-tmpl-mustache">
+                        <?= HTML::outputProtected($_POST['message_html']); ?>
+                      </script>
+
+                      <script>
+                        $(function() {
+                          var content = $('<div />').html($('#emailHtmlPreview').html()).text();
+                          $('#emailHtmlPreviewContent').contents().find('html').html(content);
+                        });
+                      </script>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="plain_preview">
+                      <?= nl2br(HTML::outputProtected($_POST['message'])); ?>
+                    </div>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
@@ -138,7 +167,7 @@
 /* Re-Post all POST'ed variables */
     foreach ( $_POST as $key => $value ) {
       if (!is_array($_POST[$key])) {
-        echo HTML::hiddenField($key, htmlspecialchars(stripslashes($value)));
+        echo HTML::hiddenField($key, $value);
       }
     }
 
@@ -205,7 +234,22 @@
               </tr>
               <tr>
                 <td valign="top" class="main"><?php echo OSCOM::getDef('text_message'); ?></td>
-                <td><?php echo HTML::textareaField('message', '60', '15'); ?></td>
+                <td>
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#html_email" aria-controls="html_email" role="tab" data-toggle="tab"><?= OSCOM::getDef('email_type_html'); ?></a></li>
+                    <li role="presentation"><a href="#plain_email" aria-controls="plain_email" role="tab" data-toggle="tab"><?= OSCOM::getDef('email_type_plain'); ?></a></li>
+                  </ul>
+
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="html_email">
+                      <?= HTML::textareaField('message_html', '60', '15'); ?>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="plain_email">
+                      <?= HTML::textareaField('message', '60', '15'); ?>
+                    </div>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td colspan="2">&nbsp;</td>

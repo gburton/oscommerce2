@@ -76,9 +76,14 @@ class Mail
         $this->to = [];
         $this->cc = [];
         $this->bcc = [];
-        $this->headers = [
-            'X-Mailer' => 'osCommerce'
-        ];
+
+        if (isset($this->headers['Cc'])) {
+            unset($this->headers['Cc']);
+        }
+
+        if (isset($this->headers['Bcc'])) {
+            unset($this->headers['Bcc']);
+        }
     }
 
     public function setSubject($subject)
@@ -86,12 +91,15 @@ class Mail
         $this->subject = $subject;
     }
 
-    public function setBody($html)
+    public function setBody($text, $html = null)
     {
-        $plain = strip_tags($html);
+        $this->setBodyPlain($text);
+
+        if (!isset($html) || empty($html)) {
+            $html = nl2br($text);
+        }
 
         $this->setBodyHTML($html);
-        $this->setBodyPlain($plain);
     }
 
     public function setBodyPlain($body)
